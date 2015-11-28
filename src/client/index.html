@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <style>
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide { display: none!important; }
+    </style>
+    <title ng-bind="title">qbot</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <base href="/">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+
+    <!-- build:css styles/lib.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/app.css -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/.tmp/styles.css">
+    <!-- endinject -->
+    <!-- endbuild -->
+</head>
+<body  ng-app="app" layout="column" layout-fill ng-cloak="">
+    <md-toolbar layout="row" ng-controller="Toolbar as vm">
+      <div class="md-toolbar-tools">
+        <a ui-sref="home">QBOT</a>
+        <!-- fill up the space between left and right area -->
+        <span flex></span>
+        <p ng-show-auth="">{{vm.firstName.$value}}</p>
+        <md-menu md-offset="0 -7" ng-show-auth="">
+          <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-icon md-menu-origin>more_vert</md-icon>
+          </md-button>
+          <md-menu-content width="2">
+            <md-menu-item>
+              <md-button ui-sref="account"> <span md-menu-align-target>Account</span> </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="vm.logout()"> <span md-menu-align-target>Logout</span> </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+    </md-toolbar>
+
+    <md-content layout="column" layout-padding flex class="md-padding" ui-view="">
+    </md-content>
+
+    <!-- build:js js/lib.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/bower_components/extras.angular.plus/ngplus-overlay.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_components/toastr/toastr.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/firebase/firebase.js"></script>
+    <script src="/bower_components/firebase-util/dist/firebase-util.min.js"></script>
+    <script src="/bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js js/app.js -->
+    <!-- inject:js -->
+    <script src="/src/client/app/app.module.js"></script>
+    <script src="/src/client/app/account/account.module.js"></script>
+    <script src="/src/client/app/blocks/exception/exception.module.js"></script>
+    <script src="/src/client/app/blocks/logger/logger.module.js"></script>
+    <script src="/src/client/app/blocks/router/router.module.js"></script>
+    <script src="/src/client/app/core/core.module.js"></script>
+    <script src="/src/client/app/home/home.module.js"></script>
+    <script src="/src/client/app/login/login.module.js"></script>
+    <script src="/src/client/app/toolbar/toolbar.module.js"></script>
+    <script src="/src/client/app/user/user.module.js"></script>
+    <script src="/src/client/app/account/account.route.js"></script>
+    <script src="/src/client/app/angularfire/auth.js"></script>
+    <script src="/src/client/app/angularfire/config.js"></script>
+    <script src="/src/client/app/angularfire/firebase.ref.js"></script>
+    <script src="/src/client/app/authentication/authentication.service.js"></script>
+    <script src="/src/client/app/blocks/directives/blocks.directives.js"></script>
+    <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
+    <script src="/src/client/app/blocks/exception/exception.js"></script>
+    <script src="/src/client/app/blocks/filters/blocks.filters.js"></script>
+    <script src="/src/client/app/blocks/logger/logger.js"></script>
+    <script src="/src/client/app/blocks/router/router-helper.provider.js"></script>
+    <script src="/src/client/app/core/config.js"></script>
+    <script src="/src/client/app/core/constants.js"></script>
+    <script src="/src/client/app/core/core.route.js"></script>
+    <script src="/src/client/app/core/dataservice.js"></script>
+    <script src="/src/client/app/core/theme.js"></script>
+    <script src="/src/client/app/home/home.route.js"></script>
+    <script src="/src/client/app/login/login.route.js"></script>
+    <!-- endinject -->
+
+    <!-- inject:templates:js -->
+    <!-- endinject -->
+    <!-- endbuild -->
+</body>
+</html>
