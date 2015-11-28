@@ -13,8 +13,8 @@
     }
 
     var config = {
-        appErrorPrefix: '[seed Error] ',
-        appTitle: 'seed'
+        appErrorPrefix: '[qbot Error] ',
+        appTitle: 'qbot'
     };
 
     core.value('config', config);

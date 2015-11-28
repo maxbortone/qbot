@@ -4,9 +4,9 @@
         .module('app.user', ['firebase', 'firebase.ref', 'firebase.auth'])
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$q', '$firebaseObject', '$firebaseArray', 'Ref', 'Auth'];
+    UserService.$inject = ['$q', '$firebaseObject', '$firebaseArray', 'Ref'];
     /* @ngInject */
-    function UserService($q, $firebaseObject, $firebaseArray, Ref, Auth) {
+    function UserService($q, $firebaseObject, $firebaseArray, Ref) {
         var service = {};
 
         service.getProfile = getProfile;

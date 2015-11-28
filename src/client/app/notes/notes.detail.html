@@ -1,0 +1,22 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        {{vm.subject | titlecase}} > {{vm.note.title}}
+        <span flex></span>
+        <md-menu md-offset="0 -7" ng-show-auth="">
+          <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-icon md-menu-origin>more_vert</md-icon>
+          </md-button>
+          <md-menu-content width="2">
+            <md-menu-item>
+              <md-button> <span md-menu-align-target>Edit</span> </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button> <span md-menu-align-target>Delete</span> </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>
+<md-content layout-padding>
+    {{vm.note.content}}
+</md-content>

@@ -1,0 +1,24 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-input-container flex>
+            <label>Title</label>
+            <input ng-model="vm.newNote.title">
+        </md-input-container>
+        <md-menu md-offset="0 -7" ng-show-auth="">
+          <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <md-icon md-menu-origin>more_vert</md-icon>
+          </md-button>
+          <md-menu-content width="2">
+            <md-menu-item>
+              <md-button> <span md-menu-align-target>Save</span> </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button> <span md-menu-align-target>Delete</span> </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>
+<md-content layout-padding>
+    {{vm.newNote.content}}
+</md-content>

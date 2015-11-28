@@ -9,6 +9,7 @@
         'app.login',
         'app.account',
         'app.toolbar',
-        'app.home'
+        'app.home',
+        'app.notes'
     ]);
 })();
