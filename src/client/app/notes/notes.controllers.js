@@ -12,7 +12,7 @@
         var vm = this;
 
         vm.user = null;
-        vm.subjects = [];
+        vm.courses = [];
         vm.notes = [];
         vm.loadTab = loadTab;
 
@@ -20,25 +20,25 @@
 
         function activate() {
             vm.user = user;
-            return getSubjects().then(function() {
+            return getCourses().then(function() {
                 logger.success('Notes view activated');
             });
         }
 
-        function getSubjects() {
-            return NotesService.getSubjects()
+        function getCourses() {
+            return NotesService.getCourses()
                 .then(function(data) {
-                    vm.subjects = data;
-                    return vm.subjects;
+                    vm.courses = data;
+                    return vm.courses;
                 });
         }
 
         function loadTab(subject) {
-            getNotesBySubject(subject);
+            getNotesByCourse(subject);
         }
 
-        function getNotesBySubject(subject) {
-            return NotesService.getNotesBySubject(subject)
+        function getNotesByCourse(subject) {
+            return NotesService.getNotesByCourse(subject)
                 .then(function(data) {
                     vm.notes = data;
                     return vm.notes;
@@ -66,14 +66,14 @@
         var vm = this;
 
         vm.user = null;
-        vm.subject = '';
+        vm.course = '';
         vm.note = [];
 
         activate();
 
         function activate() {
             vm.user = user;
-            vm.subject = $stateParams.noteSubject;
+            vm.course = $stateParams.noteCourse;
             return getNote($stateParams.noteId).then(function() {
                 logger.success('Note detail view activated');
             });

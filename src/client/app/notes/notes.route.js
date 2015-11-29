@@ -48,7 +48,7 @@
             {
                 state: 'notes.detail',
                 config: {
-                    url: '/:noteSubject/:noteId',
+                    url: '/:noteCourse/:noteId',
                     templateUrl: 'app/notes/notes.detail.html',
                     controller: 'NotesDetail',
                     controllerAs: 'vm',

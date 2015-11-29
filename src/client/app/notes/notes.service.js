@@ -11,8 +11,9 @@
 
         service.getNotes = getNotes;
         service.getNote = getNote;
-        service.getNotesBySubject = getNotesBySubject;
-        service.getSubjects = getSubjects;
+        service.getNotesByCourse = getNotesByCourse;
+        service.getCourses = getCourses;
+        service.getCourse = getCourse;
 
         return service;
 
@@ -36,23 +37,33 @@
                 });
         }
 
-        function getNotesBySubject(subject) {
-            return $http.get('api/notes/' + subject)
+        function getNotesByCourse(course) {
+            return $http.get('api/notes/' + course)
                 .then(function(response) {
                     return response.data;
                 })
                 .catch(function(error) {
-                    logger.error('XHR Failed for getNotesBySubject: ' + error.data);
+                    logger.error('XHR Failed for getNotesByCourse: ' + error.data);
                 });
         }
 
-        function getSubjects() {
-            return $http.get('api/subjects')
+        function getCourses() {
+            return $http.get('api/courses')
                 .then(function(response) {
                     return response.data;
                 })
                 .catch(function(error) {
-                    logger.error('XHR Failed for getSubjects: ' + error.data);
+                    logger.error('XHR Failed for getCourses: ' + error.data);
+                });
+        }
+
+        function getCourse(id) {
+            return $http.get('api/course/' + id)
+                .then(function(response) {
+                    return response.data;
+                })
+                .catch(function(error) {
+                    logger.error('XHR Failed for getCourse: ' + error.data);
                 });
         }
     }

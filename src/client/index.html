@@ -30,8 +30,19 @@
 </head>
 <body  ng-app="app" layout="column" layout-fill ng-cloak="">
     <md-toolbar layout="row" ng-controller="Toolbar as vm">
-        <div class="md-toolbar-tools">
-            <a ui-sref="home">QBOT</a>
+        <div class="md-toolbar-tools" layout-align="start center">
+            <a ui-sref="home" class="qb-brand">QBOT</a>
+            <md-menu md-offset="0 7" ng-show-auth="" class="qb-course-menu">
+                Learning:
+                <md-button aria-label="Open menu" class="md-warn md-hue-3" md-no-ink ng-click="$mdOpenMenu($event)">
+                    <span md-menu-origin>{{vm.course.name}}</span>
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item ng-repeat="course in vm.courses">
+                        <md-button ng-click="vm.loadCourse(course.id)"> <span md-menu-align-target>{{course.name}}</span> </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
             <!-- fill up the space between left and right area -->
             <span flex></span>
             <p ng-show-auth="">{{vm.firstName.$value}}</p>
