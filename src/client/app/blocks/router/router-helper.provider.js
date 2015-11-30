@@ -12,7 +12,23 @@
         /* jshint validthis:true */
         var config = {
             docTitle: undefined,
-            resolveAlways: {}
+            resolveCurrentUser: {
+                $currentUser: ['$q', 'Auth', 'User', function($q, Auth, User) {
+                    var def = $q.defer();
+                    Auth.$requireAuth()
+                        .then(function(authData) {
+                            if (authData) {
+                                User.$find(authData.uid).$loaded().then(function(user) {
+                                    def.resolve(user);
+                                });
+                            }
+                        })
+                        .catch(function(error) {
+                            def.reject(error);
+                        });
+                    return def.promise;
+                }]
+            }
         };
 
         $locationProvider.html5Mode(true);
@@ -46,8 +62,9 @@
 
             function configureStates(states, otherwisePath) {
                 states.forEach(function(state) {
-                    state.config.resolve =
-                    angular.extend(state.config.resolve || {}, config.resolveAlways);
+                    if (state.config.authenticate) {
+                        state.config.resolve = angular.extend(state.config.resolve || {}, config.resolveCurrentUser);
+                    }
                     $stateProvider.state(state.state, state.config);
                 });
                 if (otherwisePath && !hasOtherwise) {

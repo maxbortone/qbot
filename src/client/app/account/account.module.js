@@ -4,12 +4,12 @@
     .module('app.account', ['ngMaterial', 'firebase', 'firebase.auth', 'app.user', 'blocks.logger'])
     .controller('Account', Account);
 
-    Account.$inject = ['$scope', 'user', 'Auth', '$firebaseObject', '$mdDialog', 'UserService', 'logger'];
+    Account.$inject = ['$scope', '$currentUser', 'Auth', '$firebaseObject', '$mdDialog', 'User', 'logger'];
     /* @ngInject */
-    function Account($scope, user, Auth, $firebaseObject, $mdDialog, UserService, logger) {
+    function Account($scope, $currentUser, Auth, $firebaseObject, $mdDialog, User, logger) {
         var vm = this;
 
-        vm.user = {};
+        vm.user = null;
         vm.contacts = [];
         vm.profile = {};
         vm.modifyEmail = false;
@@ -21,10 +21,8 @@
         activate();
 
         function activate() {
-            vm.user = user;
-            var profile = UserService.getProfile(user.uid);
-            profile.$bindTo($scope, 'vm.profile');
-            vm.contacts = UserService.getContacts(user.uid);
+            $currentUser.$bindTo($scope, 'vm.profile');
+            vm.contacts = $currentUser.$contacts();
         }
 
         function changePassword(oldPass, newPass, confirm) {
@@ -50,7 +48,6 @@
         }
 
         function changeEmail(pass, newEmail) {
-            console.log('changing email: ' + pass + ', ' + newEmail + ', ' + vm.profile.email);
             vm.err = null;
             Auth.$changeEmail({password: pass, newEmail: newEmail, oldEmail: vm.profile.email})
             .then(function() {
@@ -99,7 +96,7 @@
                 dl.message = '';
 
                 function addContact(email) {
-                    UserService.addContact(user.uid, email)
+                    User.addContact($currentUser, email)
                     .then(function(data) {
                         closeDialog();
                         logger.success('Contact added!');

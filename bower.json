@@ -30,7 +30,8 @@
     "firebase": "~2.3.2",
     "firebase-util": "~0.2.5",
     "angularfire": "~1.1.3",
-    "angular-material": "~0.11.4"
+    "angular-material": "~0.11.4",
+    "angularfire-resource": "~0.0.7"
   },
   "resolutions": {
     "angular": "1.3.17",

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.account')
+        .module('app.login')
         .run(appRun);
 
     appRun.$inject = ['routerHelper'];
@@ -14,11 +14,11 @@
     function getStates() {
         return [
             {
-                state: 'account',
+                state: 'course',
                 config: {
-                    url: '/account',
-                    templateUrl: 'app/account/account.html',
-                    controller: 'Account',
+                    url: '/',
+                    templateUrl: 'app/course/course.html',
+                    controller: 'CourseController',
                     controllerAs: 'vm',
                     authenticate: true
                 }

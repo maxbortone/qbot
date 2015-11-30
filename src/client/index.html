@@ -31,8 +31,8 @@
 <body  ng-app="app" layout="column" layout-fill ng-cloak="">
     <md-toolbar layout="row" ng-controller="Toolbar as vm">
         <div class="md-toolbar-tools" layout-align="start center">
-            <a ui-sref="home" class="qb-brand">QBOT</a>
-            <md-menu md-offset="0 7" ng-show-auth="" class="qb-course-menu">
+            <a href="/" class="qb-brand">QBOT</a>
+            <md-menu md-offset="0 7" ng-show-auth="" class="qb-course-menu" ng-show="vm.user">
                 Learning:
                 <md-button aria-label="Open menu" class="md-warn md-hue-3" md-no-ink ng-click="$mdOpenMenu($event)">
                     <span md-menu-origin>{{vm.course.name}}</span>
@@ -45,8 +45,8 @@
             </md-menu>
             <!-- fill up the space between left and right area -->
             <span flex></span>
-            <p ng-show-auth="">{{vm.firstName.$value}}</p>
-            <md-menu md-offset="0 -7" ng-show-auth="">
+            <p ng-show-auth="">{{vm.user.name | firstname}}</p>
+            <md-menu md-offset="0 -7" ng-show="vm.user">
                 <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-menu-origin>more_vert</md-icon>
                 </md-button>
@@ -83,6 +83,7 @@
     <script src="/bower_components/angularfire/dist/angularfire.js"></script>
     <script src="/bower_components/angular-aria/angular-aria.js"></script>
     <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/bower_components/angularfire-resource/dist/angularfire-resource.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -94,6 +95,7 @@
     <script src="/src/client/app/blocks/logger/logger.module.js"></script>
     <script src="/src/client/app/blocks/router/router.module.js"></script>
     <script src="/src/client/app/core/core.module.js"></script>
+    <script src="/src/client/app/course/course.module.js"></script>
     <script src="/src/client/app/home/home.module.js"></script>
     <script src="/src/client/app/login/login.module.js"></script>
     <script src="/src/client/app/notes/notes.module.js"></script>
@@ -115,11 +117,15 @@
     <script src="/src/client/app/core/core.route.js"></script>
     <script src="/src/client/app/core/dataservice.js"></script>
     <script src="/src/client/app/core/theme.js"></script>
+    <script src="/src/client/app/course/course.controllers.js"></script>
+    <script src="/src/client/app/course/course.route.js"></script>
+    <script src="/src/client/app/course/course.service.js"></script>
     <script src="/src/client/app/home/home.route.js"></script>
     <script src="/src/client/app/login/login.route.js"></script>
     <script src="/src/client/app/notes/notes.controllers.js"></script>
     <script src="/src/client/app/notes/notes.route.js"></script>
     <script src="/src/client/app/notes/notes.service.js"></script>
+    <script src="/src/client/app/user/user.service.js"></script>
     <!-- endinject -->
 
     <!-- inject:templates:js -->

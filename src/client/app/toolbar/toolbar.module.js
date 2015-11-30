@@ -1,15 +1,15 @@
 (function() {
     'use strict';
     angular
-        .module('app.toolbar', ['firebase.auth', 'app.user', 'app.notes'])
+        .module('app.toolbar', ['firebase.auth', 'blocks.filters', 'app.user'])
         .controller('Toolbar', Toolbar);
 
-    Toolbar.$inject = ['$scope', '$state', 'Auth', 'UserService', 'NotesService'];
+    Toolbar.$inject = ['$scope', '$state', 'Auth', 'User'];
     /* @ngInject */
-    function Toolbar($scope, $state, Auth, UserService, NotesService) {
+    function Toolbar($scope, $state, Auth, User) {
         var vm = this;
 
-        vm.firstName = '';
+        vm.user = null;
         vm.courses = [];
         vm.course = '';
         vm.loadCourse = loadCourse;
@@ -20,11 +20,10 @@
         function activate() {
             Auth.$onAuth(function(authData) {
                 if (authData) {
-                    vm.firstName = UserService.getFirstName(authData.uid);
-                    getCourses();
+                    vm.user = User.$find(authData.uid);
+                    //getCourses();
                 } else {
-                    vm.firstName = '';
-                    $state.go('login');
+                    vm.user = null;
                 }
             });
         }
@@ -49,6 +48,7 @@
         function logout() {
             vm.userName = '';
             Auth.$unauth();
+            $state.go('login');
         }
     }
 })();

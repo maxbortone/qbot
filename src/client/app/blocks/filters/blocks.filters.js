@@ -6,6 +6,11 @@
         return angular.isArray(items) ? items.slice().reverse() : [];
       };
     })
+    .filter('firstname', function() {
+      return function(name) {
+        return angular.isString(name) ? name.split(' ')[0] : '';
+      };
+    })
     .filter('titlecase', function() {
         return function (input) {
             var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
