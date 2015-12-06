@@ -2,11 +2,11 @@
     'use strict';
     angular
         .module('app.home', ['blocks.filters', 'blocks.logger'])
-        .controller('Home', Home);
+        .controller('HomeController', HomeController);
 
-    Home.$inject = ['$scope', '$currentUser', 'logger'];
+    HomeController.$inject = ['$scope', '$currentUser', 'logger'];
     /* @ngInject */
-    function Home($scope, $currentUser, logger) {
+    function HomeController($scope, $currentUser, logger) {
         var vm = this;
 
         vm.user = null;

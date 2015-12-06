@@ -2,11 +2,11 @@
     'use strict';
     angular
     .module('app.account', ['ngMaterial', 'firebase', 'firebase.auth', 'app.user', 'blocks.logger'])
-    .controller('Account', Account);
+    .controller('AccountController', AccountController);
 
-    Account.$inject = ['$scope', '$currentUser', 'Auth', '$firebaseObject', '$mdDialog', 'User', 'logger'];
+    AccountController.$inject = ['$scope', '$currentUser', 'Auth', '$firebaseObject', '$mdDialog', 'logger'];
     /* @ngInject */
-    function Account($scope, $currentUser, Auth, $firebaseObject, $mdDialog, User, logger) {
+    function AccountController($scope, $currentUser, Auth, $firebaseObject, $mdDialog, logger) {
         var vm = this;
 
         vm.user = null;
@@ -50,16 +50,16 @@
         function changeEmail(pass, newEmail) {
             vm.err = null;
             Auth.$changeEmail({password: pass, newEmail: newEmail, oldEmail: vm.profile.email})
-            .then(function() {
-                vm.profile.email = newEmail;
-                vm.profile.$save();
-                vm.modifyEmail = false;
-                vm.pass = null;
-                vm.newEmail = null;
-                logger.success('Email changed');
-            }, function(reason) {
-                logger.error(reason);
-            });
+                .then(function() {
+                    vm.profile.email = newEmail;
+                    vm.profile.$save();
+                    vm.modifyEmail = false;
+                    vm.pass = null;
+                    vm.newEmail = null;
+                    logger.success('Email changed');
+                }, function(reason) {
+                    logger.error(reason);
+                });
         }
 
         function addContactDialog($event) {

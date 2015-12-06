@@ -20,7 +20,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/login/login.html',
-                            controller: 'Login',
+                            controller: 'LoginController',
                             controllerAs: 'vm'
                         }
                     }

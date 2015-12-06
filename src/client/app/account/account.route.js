@@ -20,7 +20,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/account/account.html',
-                            controller: 'Account',
+                            controller: 'AccountController',
                             controllerAs: 'vm'
                         }
                     },

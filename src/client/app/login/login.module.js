@@ -2,11 +2,11 @@
     'use strict';
     angular
         .module('app.login', ['firebase', 'firebase.auth', 'app.auth', 'blocks.logger'])
-        .controller('Login', Login);
+        .controller('LoginController', LoginController);
 
-    Login.$inject = ['$location', '$firebaseObject', 'Auth', 'AuthenticationService', 'logger', 'homeRedirectPath'];
+    LoginController.$inject = ['$location', '$firebaseObject', 'Auth', 'AuthenticationService', 'logger'];
     /* @ngInject */
-    function Login($location, $firebaseObject, Auth, AuthenticationService, logger, homeRedirectPath) {
+    function LoginController($location, $firebaseObject, Auth, AuthenticationService, logger) {
         var vm = this;
 
         vm.createMode = false;
@@ -39,7 +39,7 @@
 
         function redirect(response) {
             logger.success('You successfully logged in!');
-            $location.path(homeRedirectPath);
+            $location.path('/');
         }
 
         function showError(error) {
