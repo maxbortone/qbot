@@ -1,44 +1,46 @@
-<md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center">
-  <md-content layout-padding ng-hide="vm.createMode">
-    <md-input-container md-no-float >
-      <md-icon>email</md-icon>
-      <input ng-model="vm.email" type="email" placeholder="Email">
-    </md-input-container>
-    <md-input-container md-no-float >
-      <md-icon>lock</md-icon>
-      <input ng-model="vm.pass" type="password" placeholder="Password">
-    </md-input-container>
-    <div layout="row">
-      <md-button class="md-raised md-primary" ng-click="vm.passwordLogin(vm.email, vm.pass)">Log in</md-button>
-      <md-button class="md-raised md-warn" ng-click="vm.createMode = true">Register</md-button>
-    </div>
-  </md-content>
-  <md-content layout-padding ng-show="vm.createMode">
-    <div layout layout-sm="columns">
-      <md-input-container md-no-float flex>
-        <md-icon>person</md-icon>
-        <input ng-model="vm.newUser.firstName" type="test" placeholder="First name">
-      </md-input-container>
-      <md-input-container md-no-float flex>
-        <input ng-model="vm.newUser.lastName" type="test" placeholder="Last Name">
-      </md-input-container>
-    </div>
-    <md-input-container md-no-float >
-      <md-icon>email</md-icon>
-      <input ng-model="vm.newUser.email" type="email" placeholder="Email">
-    </md-input-container>
-    <div layout layout-sm="columns">
-      <md-input-container md-no-float flex>
-        <md-icon>lock</md-icon>
-        <input ng-model="vm.newUser.password" type="password" placeholder="Password">
-      </md-input-container>
-      <md-input-container md-no-float flex>
-        <input ng-model="vm.newUser.confirm" type="password" placeholder="Confirm password">
-      </md-input-container>
-    </div>
-    <div layout="row">
-      <md-button class="md-raised md-primary" ng-click="vm.registerAccount(vm.newUser)">Create</md-button>
-      <md-button class="md-raised md-warn" ng-click="vm.createMode = false">Cancel</md-button>
-    </div>
-  </md-content>
-</md-whiteframe>
+<md-content layout="column" layout-padding flex class="md-padding">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center">
+      <md-content layout-padding ng-hide="vm.createMode">
+        <md-input-container md-no-float >
+          <md-icon>email</md-icon>
+          <input ng-model="vm.email" type="email" placeholder="Email">
+        </md-input-container>
+        <md-input-container md-no-float >
+          <md-icon>lock</md-icon>
+          <input ng-model="vm.pass" type="password" placeholder="Password">
+        </md-input-container>
+        <div layout="row">
+          <md-button class="md-raised md-primary" ng-click="vm.passwordLogin(vm.email, vm.pass)">Log in</md-button>
+          <md-button class="md-raised md-warn" ng-click="vm.createMode = true">Register</md-button>
+        </div>
+      </md-content>
+      <md-content layout-padding ng-show="vm.createMode">
+        <div layout layout-sm="columns">
+          <md-input-container md-no-float flex>
+            <md-icon>person</md-icon>
+            <input ng-model="vm.newUser.firstName" type="text" placeholder="First name">
+          </md-input-container>
+          <md-input-container md-no-float flex>
+            <input ng-model="vm.newUser.lastName" type="text" placeholder="Last Name">
+          </md-input-container>
+        </div>
+        <md-input-container md-no-float >
+          <md-icon>email</md-icon>
+          <input ng-model="vm.newUser.email" type="email" placeholder="Email">
+        </md-input-container>
+        <div layout layout-sm="columns">
+          <md-input-container md-no-float flex>
+            <md-icon>lock</md-icon>
+            <input ng-model="vm.newUser.password" type="password" placeholder="Password">
+          </md-input-container>
+          <md-input-container md-no-float flex>
+            <input ng-model="vm.newUser.confirm" type="password" placeholder="Confirm password">
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-button class="md-raised md-primary" ng-click="vm.registerAccount(vm.newUser)">Create</md-button>
+          <md-button class="md-raised md-warn" ng-click="vm.createMode = false">Cancel</md-button>
+        </div>
+      </md-content>
+    </md-whiteframe>
+</md-content>

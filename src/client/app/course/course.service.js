@@ -7,7 +7,11 @@
     Course.$inject = ['$q', '$firebaseObject', '$firebaseArray', 'Ref', 'FireResource'];
     /* @ngInject */
     function Course($q, $firebaseObject, $firebaseArray, Ref, FireResource) {
-        return FireResource(Ref.child('courses'))
-            .hasOne('user', {inverseOf: false});
+        return FireResource(Ref.child('courses'), function() {
+            this.hasMany('notes', {className: 'Resource'});
+            this.hasMany('definitions', {className: 'Resource'});
+            this.hasMany('cards', {className: 'Resource'});
+            this.hasOne('user', {inverseOf: false});
+        });
     }
 })();

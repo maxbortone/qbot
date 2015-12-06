@@ -17,9 +17,13 @@
                 state: 'login',
                 config: {
                     url: '/login',
-                    templateUrl: 'app/login/login.html',
-                    controller: 'Login',
-                    controllerAs: 'vm'
+                    views: {
+                        'main@': {
+                            templateUrl: 'app/login/login.html',
+                            controller: 'Login',
+                            controllerAs: 'vm'
+                        }
+                    }
                 }
             }
         ];

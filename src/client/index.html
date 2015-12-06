@@ -32,8 +32,9 @@
     <md-toolbar layout="row" ng-controller="Toolbar as vm">
         <div class="md-toolbar-tools" layout-align="start center">
             <a href="/" class="qb-brand">QBOT</a>
-            <md-menu md-offset="0 7" ng-show-auth="" class="qb-course-menu" ng-show="vm.user">
-                Learning:
+            <!-- Learning: {{vm.displayedCourse}} -->
+            <!-- <md-menu ng-if="vm.courses.length > 0" md-offset="0 7" ng-show-auth="" class="qb-course-menu" ng-show="vm.user">
+
                 <md-button aria-label="Open menu" class="md-warn md-hue-3" md-no-ink ng-click="$mdOpenMenu($event)">
                     <span md-menu-origin>{{vm.course.name}}</span>
                 </md-button>
@@ -42,7 +43,7 @@
                         <md-button ng-click="vm.loadCourse(course.id)"> <span md-menu-align-target>{{course.name}}</span> </md-button>
                     </md-menu-item>
                 </md-menu-content>
-            </md-menu>
+            </md-menu> -->
             <!-- fill up the space between left and right area -->
             <span flex></span>
             <p ng-show-auth="">{{vm.user.name | firstname}}</p>
@@ -51,9 +52,6 @@
                     <md-icon md-menu-origin>more_vert</md-icon>
                 </md-button>
                 <md-menu-content width="2">
-                    <md-menu-item>
-                        <md-button ui-sref="notes"> <span md-menu-align-target>Notes</span> </md-button>
-                    </md-menu-item>
                     <md-menu-item>
                         <md-button ui-sref="account"> <span md-menu-align-target>Account</span> </md-button>
                     </md-menu-item>
@@ -65,8 +63,7 @@
         </div>
     </md-toolbar>
 
-    <md-content layout="column" layout-padding flex class="md-padding" ui-view="">
-    </md-content>
+    <div ui-view="main" flex></div>
 
     <!-- build:js js/lib.js -->
     <!-- bower:js -->
@@ -98,7 +95,7 @@
     <script src="/src/client/app/course/course.module.js"></script>
     <script src="/src/client/app/home/home.module.js"></script>
     <script src="/src/client/app/login/login.module.js"></script>
-    <script src="/src/client/app/notes/notes.module.js"></script>
+    <script src="/src/client/app/resources/resources.module.js"></script>
     <script src="/src/client/app/toolbar/toolbar.module.js"></script>
     <script src="/src/client/app/user/user.module.js"></script>
     <script src="/src/client/app/account/account.route.js"></script>
@@ -122,9 +119,9 @@
     <script src="/src/client/app/course/course.service.js"></script>
     <script src="/src/client/app/home/home.route.js"></script>
     <script src="/src/client/app/login/login.route.js"></script>
-    <script src="/src/client/app/notes/notes.controllers.js"></script>
-    <script src="/src/client/app/notes/notes.route.js"></script>
-    <script src="/src/client/app/notes/notes.service.js"></script>
+    <script src="/src/client/app/resources/resources.controllers.js"></script>
+    <script src="/src/client/app/resources/resources.route.js"></script>
+    <script src="/src/client/app/resources/resources.service.js"></script>
     <script src="/src/client/app/user/user.service.js"></script>
     <!-- endinject -->
 

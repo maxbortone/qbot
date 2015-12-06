@@ -17,15 +17,14 @@
                 state: 'home',
                 config: {
                     url: '/',
-                    templateUrl: 'app/home/home.html',
-                    controller: 'Home',
-                    controllerAs: 'vm',
-                    authenticate: true,
-                    resolve: {
-                        user: ['Auth', function(Auth) {
-                            return Auth.$requireAuth();
-                        }]
-                    }
+                    views: {
+                        'main@': {
+                            templateUrl: 'app/home/home.html',
+                            controller: 'Home',
+                            controllerAs: 'vm',
+                        }
+                    },
+                    authenticate: true
                 }
             }
         ];

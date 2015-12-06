@@ -96,7 +96,7 @@
                 dl.message = '';
 
                 function addContact(email) {
-                    User.addContact($currentUser, email)
+                    $currentUser.addContact(email)
                     .then(function(data) {
                         closeDialog();
                         logger.success('Contact added!');

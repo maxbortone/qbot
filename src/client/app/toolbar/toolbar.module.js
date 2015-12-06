@@ -10,9 +10,6 @@
         var vm = this;
 
         vm.user = null;
-        vm.courses = [];
-        vm.course = '';
-        vm.loadCourse = loadCourse;
         vm.logout = logout;
 
         activate();
@@ -20,29 +17,14 @@
         function activate() {
             Auth.$onAuth(function(authData) {
                 if (authData) {
-                    vm.user = User.$find(authData.uid);
-                    //getCourses();
+                    User.$find(authData.uid)
+                    .$loaded(function(user) {
+                        vm.user = user;
+                    });
                 } else {
                     vm.user = null;
                 }
             });
-        }
-
-        function getCourses() {
-            return NotesService.getCourses()
-                .then(function(data) {
-                    vm.courses = data;
-                    vm.course = data[0];
-                    return vm.courses;
-                });
-        }
-
-        function loadCourse(id) {
-            return NotesService.getCourse(id)
-                .then(function(data) {
-                    vm.course = data;
-                    return vm.course;
-                });
         }
 
         function logout() {

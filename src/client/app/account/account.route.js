@@ -17,9 +17,13 @@
                 state: 'account',
                 config: {
                     url: '/account',
-                    templateUrl: 'app/account/account.html',
-                    controller: 'Account',
-                    controllerAs: 'vm',
+                    views: {
+                        'main@': {
+                            templateUrl: 'app/account/account.html',
+                            controller: 'Account',
+                            controllerAs: 'vm'
+                        }
+                    },
                     authenticate: true
                 }
             }

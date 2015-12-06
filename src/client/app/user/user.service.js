@@ -16,7 +16,8 @@
                     console.log('Priority ' + user.email + ' set');
                 });
             });
-            this.addContact = function(user, email) {
+            this.prototype.addContact = function(email) {
+                var user = this;
                 var def = $q.defer();
                 var usersRef = Ref.child('users');
                 usersRef.equalTo(email).limitToFirst(1).once('value', function(snapshot) {
@@ -47,7 +48,6 @@
                         def.reject('Email not found');
                     }
                 });
-
                 return def.promise;
             };
         });

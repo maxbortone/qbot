@@ -1,0 +1,19 @@
+<md-content layout="column" layout-padding flex class="md-padding">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center">
+        <md-content layout-padding>
+            <h3 class="md-headline">Create a new card</h3>
+            <md-input-container>
+                <label>Front</label>
+                <textarea ng-model="vm.resource.front"></textarea>
+            </md-input-container>
+            <md-input-container>
+                <label>Back</label>
+                <textarea ng-model="vm.resource.back"></textarea>
+            </md-input-container>
+            <div layout="row">
+              <md-button class="md-raised md-primary" ng-click="vm.createResource(vm.resource, 'card')">Create</md-button>
+              <md-button class="md-raised md-warn" ng-click="vm.cancel()">Cancel</md-button>
+            </div>
+        </md-content>
+    </md-whiteframe>
+</md-content>

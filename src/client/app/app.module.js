@@ -9,8 +9,8 @@
         'app.login',
         'app.account',
         'app.toolbar',
-        //'app.home',
-        //'app.notes',
-        'app.course'
+        'app.home',
+        'app.course',
+        'app.resources'
     ]);
 })();

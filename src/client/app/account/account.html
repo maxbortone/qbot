@@ -1,114 +1,116 @@
-<md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
-  <div layout-padding layout-fill layout="column">
-    <md-toolbar class="md-primary md-hue-1">
-      <h2 class="md-toolbar-tools">
-        <span>Profile</span>
-      </h2>
-    </md-toolbar>
-    <div layout-padding layout="row">
-      <div flex>
-        <img ng-src="{{vm.profile.profileImageURL}}&s=200" class="md-card-image"></img>
-      </div>
-      <div flex="66">
-        <h3>{{vm.profile.name}}</h3>
-        <div layout="column">
-          <div layout-fill layout="row">
-            <md-input-container md-no-float style="width:70%">
-              <md-icon>email</md-icon>
-              <input ng-model="vm.profile.email" type="email" disabled>
-            </md-input-container>
-            <md-button class="md-primary" ng-click="vm.modifyEmail = true" ng-hide="vm.modifyEmail"><md-icon>mode_edit</md-icon> Modify</md-button>
+<md-content layout="column" layout-padding flex class="md-padding">
+    <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
+      <div layout-padding layout-fill layout="column">
+        <md-toolbar class="md-primary md-hue-1">
+          <h2 class="md-toolbar-tools">
+            <span>Profile</span>
+          </h2>
+        </md-toolbar>
+        <div layout-padding layout="row">
+          <div flex>
+            <img ng-src="{{vm.profile.profileImageURL}}&s=200" class="md-card-image"></img>
           </div>
+          <div flex="66">
+            <h3>{{vm.profile.name}}</h3>
+            <div layout="column">
+              <div layout-fill layout="row">
+                <md-input-container md-no-float style="width:70%">
+                  <md-icon>email</md-icon>
+                  <input ng-model="vm.profile.email" type="email" disabled>
+                </md-input-container>
+                <md-button class="md-primary" ng-click="vm.modifyEmail = true" ng-hide="vm.modifyEmail"><md-icon>mode_edit</md-icon> Modify</md-button>
+              </div>
 
-          <div layout-fill layout="row" ng-show="vm.modifyEmail">
-            <md-content layout-fill>
-              <form name="modifyEmailForm" novalidate>
-                <md-input-container md-no-float style="width:70%">
-                  <md-icon ng-show="modifyEmailForm.newemail.$invalid">check_box_outline_blank</md-icon>
-                  <md-icon ng-show="modifyEmailForm.newemail.$valid">check_box</md-icon>
-                  <input name="newemail" ng-model="vm.newEmail" type="email" placeholder="New email" required>
-                </md-input-container>
-                <md-input-container md-no-float style="width:70%">
-                  <md-icon ng-show="modifyEmailForm.pass.$invalid">check_box_outline_blank</md-icon>
-                  <md-icon ng-show="modifyEmailForm.pass.$valid">check_box</md-icon>
-                  <input name="pass" ng-model="vm.pass" type="password" placeholder="Your password" required>
-                </md-input-container>
-                <div layout="row">
-                  <md-button class="md-raised md-primary" ng-click="changeEmail(vm.pass, vm.newEmail)" ng-disabled="modifyEmailForm.$invalid">Change email</md-button>
-                  <md-button class="md-raised md-warn" ng-click="vm.modifyEmail = false">Cancel</md-button>
-                </div>
-              </form>
-            </md-content>
-          </div>
+              <div layout-fill layout="row" ng-show="vm.modifyEmail">
+                <md-content layout-fill>
+                  <form name="modifyEmailForm" novalidate>
+                    <md-input-container md-no-float style="width:70%">
+                      <md-icon ng-show="modifyEmailForm.newemail.$invalid">check_box_outline_blank</md-icon>
+                      <md-icon ng-show="modifyEmailForm.newemail.$valid">check_box</md-icon>
+                      <input name="newemail" ng-model="vm.newEmail" type="email" placeholder="New email" required>
+                    </md-input-container>
+                    <md-input-container md-no-float style="width:70%">
+                      <md-icon ng-show="modifyEmailForm.pass.$invalid">check_box_outline_blank</md-icon>
+                      <md-icon ng-show="modifyEmailForm.pass.$valid">check_box</md-icon>
+                      <input name="pass" ng-model="vm.pass" type="password" placeholder="Your password" required>
+                    </md-input-container>
+                    <div layout="row">
+                      <md-button class="md-raised md-primary" ng-click="changeEmail(vm.pass, vm.newEmail)" ng-disabled="modifyEmailForm.$invalid">Change email</md-button>
+                      <md-button class="md-raised md-warn" ng-click="vm.modifyEmail = false">Cancel</md-button>
+                    </div>
+                  </form>
+                </md-content>
+              </div>
 
-          <div layout-fill layout="row">
-            <md-input-container md-no-float style="width:70%">
-                <md-icon>lock</md-icon>
-                <input type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" disabled>
-              </md-input-container>
-            <md-button class="md-primary" ng-click="vm.modifyPassword = true" ng-hide="vm.modifyPassword"><md-icon>mode_edit</md-icon> Modify</md-button>
-          </div>
+              <div layout-fill layout="row">
+                <md-input-container md-no-float style="width:70%">
+                    <md-icon>lock</md-icon>
+                    <input type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" disabled>
+                  </md-input-container>
+                <md-button class="md-primary" ng-click="vm.modifyPassword = true" ng-hide="vm.modifyPassword"><md-icon>mode_edit</md-icon> Modify</md-button>
+              </div>
 
-          <div layout-fill layout="row" ng-show="vm.modifyPassword">
-            <md-content layout-fill>
-              <form name="modifyPasswordForm" novalidate>
-                <md-input-container md-no-float style="width:70%">
-                  <md-icon ng-show="modifyPasswordForm.oldpass.$invalid">check_box_outline_blank</md-icon>
-                  <md-icon ng-show="modifyPasswordForm.oldpass.$valid">check_box</md-icon>
-                  <input name="oldpass" ng-model="vm.oldPass" type="password" placeholder="Old password" required>
-                </md-input-container>
-                <md-input-container md-no-float style="width:70%">
-                  <md-icon ng-show="modifyPasswordForm.newpass.$invalid">check_box_outline_blank</md-icon>
-                  <md-icon ng-show="modifyPasswordForm.newpass.$valid">check_box</md-icon>
-                  <input name="newpass" ng-model="vm.newPass" type="password" placeholder="New password" required>
-                </md-input-container>
-                <md-input-container md-no-float style="width:70%">
-                  <md-icon ng-show="modifyPasswordForm.confirm.$invalid">check_box_outline_blank</md-icon>
-                  <md-icon ng-show="modifyPasswordForm.confirm.$valid">check_box</md-icon>
-                  <input name="confirm" ng-model="vm.confirm" type="password" placeholder="Confirm new password" required>
-                </md-input-container>
-                <div layout="row">
-                  <md-button class="md-raised md-primary" ng-click="changePassword(vm.oldPass, vm.newPass, vm.confirm)" ng-disabled="modifyPasswordForm.$invalid">Change password</md-button>
-                  <md-button class="md-raised md-warn" ng-click="vm.modifyPassword = false">Cancel</md-button>
-                </div>
-              </form>
-            </md-content>
+              <div layout-fill layout="row" ng-show="vm.modifyPassword">
+                <md-content layout-fill>
+                  <form name="modifyPasswordForm" novalidate>
+                    <md-input-container md-no-float style="width:70%">
+                      <md-icon ng-show="modifyPasswordForm.oldpass.$invalid">check_box_outline_blank</md-icon>
+                      <md-icon ng-show="modifyPasswordForm.oldpass.$valid">check_box</md-icon>
+                      <input name="oldpass" ng-model="vm.oldPass" type="password" placeholder="Old password" required>
+                    </md-input-container>
+                    <md-input-container md-no-float style="width:70%">
+                      <md-icon ng-show="modifyPasswordForm.newpass.$invalid">check_box_outline_blank</md-icon>
+                      <md-icon ng-show="modifyPasswordForm.newpass.$valid">check_box</md-icon>
+                      <input name="newpass" ng-model="vm.newPass" type="password" placeholder="New password" required>
+                    </md-input-container>
+                    <md-input-container md-no-float style="width:70%">
+                      <md-icon ng-show="modifyPasswordForm.confirm.$invalid">check_box_outline_blank</md-icon>
+                      <md-icon ng-show="modifyPasswordForm.confirm.$valid">check_box</md-icon>
+                      <input name="confirm" ng-model="vm.confirm" type="password" placeholder="Confirm new password" required>
+                    </md-input-container>
+                    <div layout="row">
+                      <md-button class="md-raised md-primary" ng-click="changePassword(vm.oldPass, vm.newPass, vm.confirm)" ng-disabled="modifyPasswordForm.$invalid">Change password</md-button>
+                      <md-button class="md-raised md-warn" ng-click="vm.modifyPassword = false">Cancel</md-button>
+                    </div>
+                  </form>
+                </md-content>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div layout-padding layout-fill layout="column">
-    <md-toolbar layout="row" class="md-primary md-hue-1">
-      <div class="md-toolbar-tools">
-        <h2>
-          <span>Contacts</span>
-        </h2>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.addContactDialog($event)" aria-label="Add contact">
-          <md-icon>person_add</md-icon>
-        </md-button>
-      </div>
-    </md-toolbar>
-    <md-list ng-if="vm.contacts">
-      <md-list-item class="md-2-line" ng-repeat="contact in vm.contacts">
-        <img ng-src="{{contact.profileImageURL}}" class="md-avatar" alt="{{contact.name}}" />
-        <div class="md-list-item-text compact">
-          <h3>{{contact.name}}</h3>
-          <p>{{contact.email}}</p>
+      <div layout-padding layout-fill layout="column">
+        <md-toolbar layout="row" class="md-primary md-hue-1">
+          <div class="md-toolbar-tools">
+            <h2>
+              <span>Contacts</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.addContactDialog($event)" aria-label="Add contact">
+              <md-icon>person_add</md-icon>
+            </md-button>
+          </div>
+        </md-toolbar>
+        <md-list ng-if="vm.contacts">
+          <md-list-item class="md-2-line" ng-repeat="contact in vm.contacts">
+            <img ng-src="{{contact.profileImageURL}}" class="md-avatar" alt="{{contact.name}}" />
+            <div class="md-list-item-text compact">
+              <h3>{{contact.name}}</h3>
+              <p>{{contact.email}}</p>
+            </div>
+          </md-list-item>
+        </md-list>
+        <div layout="column" layout-align="center center" ng-show="vm.contacts.length == 0">
+          <p>
+            No contacts available.
+          </p>
+          <md-button class="md-raised-button md-accent md-raised" ng-click="vm.addContactDialog($event)" aria-label="Add contact">
+            Add contact
+          </md-button>
         </div>
-      </md-list-item>
-    </md-list>
-    <div layout="column" layout-align="center center" ng-show="vm.contacts.length == 0">
-      <p>
-        No contacts available.
-      </p>
-      <md-button class="md-raised-button md-accent md-raised" ng-click="vm.addContactDialog($event)" aria-label="Add contact">
-        Add contact
-      </md-button>
-    </div>
 
 
-  </div>
-</md-whiteframe>
+      </div>
+    </md-whiteframe>
+</md-content>

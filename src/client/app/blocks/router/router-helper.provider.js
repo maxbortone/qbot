@@ -28,6 +28,16 @@
                         });
                     return def.promise;
                 }]
+            },
+            resolvePreviousState: {
+                $previousState: ['$state', function($state) {
+                    var currentStateData = {
+                        name: $state.current.name,
+                        params: $state.params,
+                        URL: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData
+                }]
             }
         };
 
@@ -64,6 +74,9 @@
                 states.forEach(function(state) {
                     if (state.config.authenticate) {
                         state.config.resolve = angular.extend(state.config.resolve || {}, config.resolveCurrentUser);
+                    }
+                    if (state.config.previousState) {
+                        state.config.resolve = angular.extend(state.config.resolve || {}, config.resolvePreviousState);
                     }
                     $stateProvider.state(state.state, state.config);
                 });
@@ -109,14 +122,14 @@
 
             function updateDocTitle() {
                 $rootScope.$on('$stateChangeSuccess',
-                function(event, toState, toParams, fromState, fromParams) {
-                    stateCounts.changes++;
-                    handlingStateChangeError = false;
-                    var title = config.docTitle + ' ' + (toState.title || '');
-                    $rootScope.title = title; // data bind to <title>
-                }
-            );
-        }
+                    function(event, toState, toParams, fromState, fromParams) {
+                        stateCounts.changes++;
+                        handlingStateChangeError = false;
+                        var title = config.docTitle + ' ' + (toState.title || '');
+                        $rootScope.title = title; // data bind to <title>
+                    }
+                );
+            }
     }
 }
 })();

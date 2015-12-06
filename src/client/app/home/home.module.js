@@ -1,21 +1,22 @@
 (function() {
     'use strict';
     angular
-        .module('app.home', ['blocks.filters', 'blocks.logger', 'app.user'])
+        .module('app.home', ['blocks.filters', 'blocks.logger'])
         .controller('Home', Home);
 
-    Home.$inject = ['$scope', 'user', 'logger', 'UserService'];
+    Home.$inject = ['$scope', '$currentUser', 'logger'];
     /* @ngInject */
-    function Home($scope, user, logger, UserService) {
+    function Home($scope, $currentUser, logger) {
         var vm = this;
 
         vm.user = null;
+        vm.courses = null;
 
         activate();
 
         function activate() {
-            vm.user = user;
-            vm.user.name = UserService.getFirstName(user.uid);
+            vm.user = $currentUser;
+            vm.courses = $currentUser.$courses();
             logger.success('Home view activated');
         }
     }
