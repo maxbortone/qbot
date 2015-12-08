@@ -12,6 +12,13 @@
             this.hasMany('definitions', {className: 'Resource'});
             this.hasMany('cards', {className: 'Resource'});
             this.hasOne('user', {inverseOf: false});
+            this.prototype.incrementResourceCount = function(type) {
+                var cid = this.$id;
+                var countRef = Ref.child('courses/' + cid + '/' + type + 's/count');
+                countRef.transaction(function(count) {
+                    return count+1;
+                });
+            };
         });
     }
 })();

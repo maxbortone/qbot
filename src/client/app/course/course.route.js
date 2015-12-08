@@ -26,12 +26,18 @@
                     },
                     authenticate: true,
                     resolve: {
-                        $courseResources: ['$q', '$currentUser', function($q, $currentUser) {
+                        $displayedCourse: ['$q', '$stateParams', 'Course', '$currentUser', function($q, $stateParams, Course, $currentUser) {
+                            return Course.$find($stateParams.id).$loaded()
+                                    .then(function(course) {
+                                        $currentUser.$setDisplayedCourse(course);
+                                        return $currentUser.$displayedCourse();
+                                    });
+                        }],
+                        $courseResources: ['$q', '$currentUser', '$displayedCourse', function($q, $currentUser, $displayedCourse) {
                             var def = $q.defer()
-                            var course = $currentUser.$displayedCourse();
                             var resources = ['notes', 'definitions', 'cards'];
                             var promises = resources.map(function(resource) {
-                                return course['$' + resource]().$loaded();
+                                return $displayedCourse['$' + resource]().$loaded();
                             });
 
                             $q.all(promises).then(function(values) {

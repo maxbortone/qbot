@@ -8,7 +8,7 @@
     /* @ngInject */
     function Resource($q, $firebaseObject, $firebaseArray, Ref, FireResource) {
         return FireResource(Ref.child('resources'), function() {
-            this.hasOne('course');
+            this.hasOne('course', {inverseOf: false});
             this.hasOne('user', {inverseOf: false});
         });
     }

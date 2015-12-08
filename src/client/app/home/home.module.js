@@ -4,9 +4,9 @@
         .module('app.home', ['blocks.filters', 'blocks.logger'])
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', '$currentUser', 'logger'];
+    HomeController.$inject = ['$scope', '$currentUser', '$courses', 'logger'];
     /* @ngInject */
-    function HomeController($scope, $currentUser, logger) {
+    function HomeController($scope, $currentUser, $courses, logger) {
         var vm = this;
 
         vm.user = null;
@@ -16,7 +16,7 @@
 
         function activate() {
             vm.user = $currentUser;
-            vm.courses = $currentUser.$courses();
+            vm.courses = $courses;
             logger.success('Home view activated');
         }
     }

@@ -26,13 +26,17 @@
             resource.type = type;
             course['$' + type + 's']().$add(resource)
                 .then(function() {
-                    vm.resource = Resource.$new();
+                    course.incrementResourceCount(type);
+                    vm.resource = null;
                     $location.path($previousState.URL);
+                }, function(reason) {
+                    logger.error(reason);
                 });
         }
 
         function cancel() {
-
+            vm.resource = null;
+            $location.path($previousState.URL);
         }
     }
 })();

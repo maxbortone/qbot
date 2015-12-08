@@ -24,7 +24,12 @@
                             controllerAs: 'vm',
                         }
                     },
-                    authenticate: true
+                    authenticate: true,
+                    resolve: {
+                        $courses: ['$currentUser', function($currentUser) {
+                            return $currentUser.$courses().$loaded();
+                        }]
+                    }
                 }
             }
         ];
