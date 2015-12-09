@@ -1,11 +1,11 @@
 <md-tabs md-stretch-tabs="always" md-dynamic-height="true">
-    <md-tab ng-repeat="resource in vm.resources">
+    <md-tab ng-repeat="resource in vm.resources" ui-sref="course({id: vm.course.$id, resource: resource})" md-active="resource == vm.activeResource">
         <md-tab-label>
-            {{resource.type}}
+            {{resource}}
         </md-tab-label>
         <md-tab-body>
             <md-list>
-                <md-list-item class="md-2-line" ng-repeat="element in resource.elements">
+                <md-list-item class="md-2-line" ng-repeat="element in vm.elements">
                     <div ng-if="element.type == 'note'" class="md-list-item-text compact">
                         <h3>{{element.title}}</h3>
                         <p>{{element.content}}</p>

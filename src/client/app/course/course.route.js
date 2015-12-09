@@ -16,7 +16,7 @@
             {
                 state: 'course',
                 config: {
-                    url: '/course/:id',
+                    url: '/course/:id/:resource',
                     views: {
                         'main@': {
                             templateUrl: 'app/course/course.html',
@@ -28,36 +28,30 @@
                     resolve: {
                         $displayedCourse: ['$q', '$stateParams', '$rootScope', 'Course', '$currentUser',
                             function($q, $stateParams, $rootScope, Course, $currentUser) {
-                            return Course.$find($stateParams.id).$loaded()
-                                    .then(function(course) {
+                                var def = $q.defer();
+                                Course.$find($stateParams.id)
+                                    .$loaded(function(course) {
                                         $rootScope.displayedCourse = course;
-                                        return $currentUser.$setDisplayedCourse(course);
+                                        $currentUser.$setDisplayedCourse(course);
+                                        def.resolve(course);
+                                    }, function(error) {
+                                        def.reject(error);
                                     });
+                                return def.promise;
                         }],
-                        $courseResources: ['$q', '$currentUser', '$displayedCourse', function($q, $currentUser, $displayedCourse) {
-                            var def = $q.defer()
-                            var resources = ['notes', 'definitions', 'cards'];
-                            var promises = resources.map(function(resource) {
-                                return $displayedCourse['$' + resource]().$loaded();
-                            });
-
-                            $q.all(promises).then(function(values) {
-                                var result = [];
-                                angular.forEach(values, function(value, key) {
-                                    if (value.length != 0) {
-                                        var resource = {
-                                            elements: value,
-                                            type: resources[key]
-                                        }
-                                        result.push(resource);
-                                    }
-                                });
-                                def.resolve(result);
-                            }, function(error) {
-                                def.reject(error);
-                            });
-
-                            return def.promise;
+                        $activeResource: ['$stateParams', function($stateParams) {
+                            return $stateParams.resource;
+                        }],
+                        $resourceElements: ['$q', '$activeResource', '$currentUser', '$displayedCourse',
+                            function($q, $activeResource, $currentUser, $displayedCourse) {
+                                var def = $q.defer();
+                                $displayedCourse['$' + $activeResource]()
+                                    .$loaded(function(result) {
+                                        def.resolve(result);
+                                    }, function(error) {
+                                        def.reject(error);
+                                    });
+                                return def.promise;
                         }]
                     }
                 }

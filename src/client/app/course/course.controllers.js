@@ -5,23 +5,29 @@
         .controller('CourseController', CourseController)
         .controller('CourseCreateController', CourseCreateController)
 
-    CourseController.$inject = ['$rootScope','$scope', 'logger', '$currentUser', '$displayedCourse', '$courseResources', 'Course'];
+    CourseController.$inject = ['$rootScope','$scope', 'logger', '$currentUser', '$displayedCourse', '$activeResource', '$resourceElements', 'Course'];
     /* @ngInject */
-    function CourseController($rootScope, $scope, logger, $currentUser, $displayedCourse, $courseResources, Course) {
+    function CourseController($rootScope, $scope, logger, $currentUser, $displayedCourse, $activeResource, $resourceElements, Course) {
         var vm = this;
+        var resources = ['notes', 'definitions', 'cards'];
 
         vm.course = null;
-        vm.resources = null;
+        vm.resources = [];
+        vm.activeresource = '';
 
         activate();
 
         function activate() {
+            vm.activeResource = $activeResource;
             vm.course = $displayedCourse;
-            vm.resources = $courseResources;
+            angular.forEach(resources, function(resource, key) {
+                if (vm.course[resource]) {
+                    vm.resources.push(resource);
+                }
+            });
+            vm.elements = $resourceElements;
             if (!vm.resources) {
                 logger.warning('No resources available!');
-            } else {
-                logger.success('Course resources activated')
             }
         }
     }
