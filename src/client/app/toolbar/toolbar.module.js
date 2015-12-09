@@ -4,9 +4,9 @@
         .module('app.toolbar', ['firebase.auth', 'blocks.filters', 'app.user'])
         .controller('ToolbarController', ToolbarController);
 
-    ToolbarController.$inject = ['$scope', '$state', 'Auth', 'User'];
+    ToolbarController.$inject = ['$rootScope', '$scope', '$state', 'Auth', 'User'];
     /* @ngInject */
-    function ToolbarController($scope, $state, Auth, User) {
+    function ToolbarController($rootScope, $scope, $state, Auth, User) {
         var vm = this;
 
         vm.user = null;
@@ -25,6 +25,11 @@
                     vm.user = null;
                 }
             });
+            $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+                if (toState.name != 'course' ) {
+                    $rootScope.displayedCourse = null;
+                }
+            })
         }
 
         function logout() {

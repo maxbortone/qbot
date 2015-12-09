@@ -17,6 +17,7 @@
                 state: 'home',
                 config: {
                     url: '/',
+                    title: 'Home',
                     views: {
                         'main@': {
                             templateUrl: 'app/home/home.html',

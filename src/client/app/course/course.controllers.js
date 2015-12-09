@@ -5,9 +5,9 @@
         .controller('CourseController', CourseController)
         .controller('CourseCreateController', CourseCreateController)
 
-    CourseController.$inject = ['$scope', 'logger', '$currentUser', '$displayedCourse', '$courseResources', 'Course'];
+    CourseController.$inject = ['$rootScope','$scope', 'logger', '$currentUser', '$displayedCourse', '$courseResources', 'Course'];
     /* @ngInject */
-    function CourseController($scope, logger, $currentUser, $displayedCourse, $courseResources, Course) {
+    function CourseController($rootScope, $scope, logger, $currentUser, $displayedCourse, $courseResources, Course) {
         var vm = this;
 
         vm.course = null;
@@ -20,6 +20,8 @@
             vm.resources = $courseResources;
             if (!vm.resources) {
                 logger.warning('No resources available!');
+            } else {
+                logger.success('Course resources activated')
             }
         }
     }

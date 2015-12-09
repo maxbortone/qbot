@@ -26,11 +26,12 @@
                     },
                     authenticate: true,
                     resolve: {
-                        $displayedCourse: ['$q', '$stateParams', 'Course', '$currentUser', function($q, $stateParams, Course, $currentUser) {
+                        $displayedCourse: ['$q', '$stateParams', '$rootScope', 'Course', '$currentUser',
+                            function($q, $stateParams, $rootScope, Course, $currentUser) {
                             return Course.$find($stateParams.id).$loaded()
                                     .then(function(course) {
-                                        $currentUser.$setDisplayedCourse(course);
-                                        return $currentUser.$displayedCourse();
+                                        $rootScope.displayedCourse = course;
+                                        return $currentUser.$setDisplayedCourse(course);
                                     });
                         }],
                         $courseResources: ['$q', '$currentUser', '$displayedCourse', function($q, $currentUser, $displayedCourse) {
