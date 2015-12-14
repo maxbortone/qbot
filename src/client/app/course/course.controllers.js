@@ -5,15 +5,16 @@
         .controller('CourseController', CourseController)
         .controller('CourseCreateController', CourseCreateController)
 
-    CourseController.$inject = ['$rootScope','$scope', 'logger', '$currentUser', '$displayedCourse', '$activeResource', '$resourceElements', 'Course'];
+    CourseController.$inject = ['$rootScope','$scope', 'logger', '$currentUser', '$displayedCourse', '$activeResource', '$resourceElements', 'Course', '$state'];
     /* @ngInject */
-    function CourseController($rootScope, $scope, logger, $currentUser, $displayedCourse, $activeResource, $resourceElements, Course) {
+    function CourseController($rootScope, $scope, logger, $currentUser, $displayedCourse, $activeResource, $resourceElements, Course, $state) {
         var vm = this;
         var resources = ['notes', 'definitions', 'cards'];
 
         vm.course = null;
         vm.resources = [];
-        vm.activeresource = '';
+        vm.activeResource = '';
+        vm.onTabSelect = onTabSelect;
 
         activate();
 
@@ -29,6 +30,10 @@
             if (!vm.resources) {
                 logger.warning('No resources available!');
             }
+        }
+
+        function onTabSelect(resource) {
+            $state.go('course', {'id': vm.course.$id, 'resource': resource});
         }
     }
 
