@@ -2,7 +2,10 @@
     'use strict';
     angular
         .module('app.resources')
-        .controller('ResourceCreateController', ResourceCreateController);
+        .controller('ResourceCreateController', ResourceCreateController)
+        .controller('NotesListController', NotesListController)
+        .controller('CardsListController', CardsListController)
+        .controller('DefinitionsListController', DefinitionsListController);
 
     ResourceCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
     /* @ngInject */
@@ -37,6 +40,48 @@
         function cancel() {
             vm.resource = null;
             $location.path($previousState.URL);
+        }
+    }
+
+    NotesListController.$inject = ['$resourceElements'];
+    /* @ngInject */
+    function NotesListController($resourceElements) {
+        var vm = this;
+
+        vm.elements = [];
+
+        activate();
+
+        function activate() {
+            vm.elements = $resourceElements;
+        }
+    }
+
+    CardsListController.$inject = ['$resourceElements'];
+    /* @ngInject */
+    function CardsListController($resourceElements) {
+        var vm = this;
+
+        vm.elements = [];
+
+        activate();
+
+        function activate() {
+            vm.elements = $resourceElements;
+        }
+    }
+
+    DefinitionsListController.$inject = ['$resourceElements'];
+    /* @ngInject */
+    function DefinitionsListController($resourceElements) {
+        var vm = this;
+
+        vm.elements = [];
+
+        activate();
+
+        function activate() {
+            vm.elements = $resourceElements;
         }
     }
 })();

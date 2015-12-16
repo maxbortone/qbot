@@ -22,6 +22,29 @@
                             templateUrl: 'app/course/course.html',
                             controller: 'CourseController',
                             controllerAs: 'vm'
+                        },
+                        'list@course': {
+                            templateUrl: function($stateParams) {
+                                return 'src/client/app/resources/' + $stateParams.resource + '.list.html';
+                            },
+                            controllerProvider: function($stateParams) {
+                                var res = $stateParams.resource;
+                                return res.charAt(0).toUpperCase() + res.slice(1) + 'ListController';
+                            },
+                            controllerAs: 'vm',
+                            resolve: {
+                                $resourceElements: ['$q', '$activeResource', '$currentUser', '$displayedCourse',
+                                    function($q, $activeResource, $currentUser, $displayedCourse) {
+                                        var def = $q.defer();
+                                        $displayedCourse['$' + $activeResource]()
+                                            .$loaded(function(result) {
+                                                def.resolve(result);
+                                            }, function(error) {
+                                                def.reject(error);
+                                            });
+                                        return def.promise;
+                                }]
+                            }
                         }
                     },
                     authenticate: true,
@@ -41,17 +64,6 @@
                         }],
                         $activeResource: ['$stateParams', function($stateParams) {
                             return $stateParams.resource;
-                        }],
-                        $resourceElements: ['$q', '$activeResource', '$currentUser', '$displayedCourse',
-                            function($q, $activeResource, $currentUser, $displayedCourse) {
-                                var def = $q.defer();
-                                $displayedCourse['$' + $activeResource]()
-                                    .$loaded(function(result) {
-                                        def.resolve(result);
-                                    }, function(error) {
-                                        def.reject(error);
-                                    });
-                                return def.promise;
                         }]
                     }
                 }
