@@ -3,6 +3,7 @@
     angular
         .module('app.resources')
         .controller('ResourceCreateController', ResourceCreateController)
+        .controller('ResourceViewController', ResourceViewController)
         .controller('NotesListController', NotesListController)
         .controller('CardsListController', CardsListController)
         .controller('DefinitionsListController', DefinitionsListController);
@@ -40,6 +41,20 @@
         function cancel() {
             vm.resource = null;
             $location.path($previousState.URL);
+        }
+    }
+
+    ResourceViewController.$inject = ['$resourceElement'];
+    /* @ngInject */
+    function ResourceViewController($resourceElement) {
+        var vm = this;
+
+        vm.resource = null;
+
+        activate();
+
+        function activate() {
+            vm.resource = $resourceElement;
         }
     }
 

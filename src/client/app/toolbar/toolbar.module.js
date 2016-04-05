@@ -26,7 +26,7 @@
                 }
             });
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-                if (toState.name != 'course' ) {
+                if (toState.name == 'account' || toState.name == 'home' ) {
                     $rootScope.displayedCourse = null;
                 }
             })

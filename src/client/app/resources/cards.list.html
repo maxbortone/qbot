@@ -1,8 +1,7 @@
 <md-list>
     <md-list-item class="md-2-line" ng-repeat="element in vm.elements">
         <div class="md-list-item-text compact">
-            <h3>{{element.front}}</h3>
-            <p>{{element.back}}</p>
+            <h3><a ui-sref="card.view({resourceId: element.$id})">{{element.front}}</a></h3>
         </div>
     </md-list-item>
 </md-list>
