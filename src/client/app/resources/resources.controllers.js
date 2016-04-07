@@ -3,7 +3,9 @@
     angular
         .module('app.resources')
         .controller('ResourceCreateController', ResourceCreateController)
-        .controller('ResourceViewController', ResourceViewController)
+        .controller('NoteViewController', NoteViewController)
+        .controller('CardViewController', CardViewController)
+        .controller('DefinitionViewController', DefinitionViewController)
         .controller('NotesListController', NotesListController)
         .controller('CardsListController', CardsListController)
         .controller('DefinitionsListController', DefinitionsListController);
@@ -44,9 +46,9 @@
         }
     }
 
-    ResourceViewController.$inject = ['$resourceElement'];
+    NoteViewController.$inject = ['$resourceElement'];
     /* @ngInject */
-    function ResourceViewController($resourceElement) {
+    function NoteViewController($resourceElement) {
         var vm = this;
 
         vm.resource = null;
@@ -55,6 +57,46 @@
 
         function activate() {
             vm.resource = $resourceElement;
+        }
+    }
+
+    CardViewController.$inject = ['$resourceElement'];
+    /* @ngInject */
+    function CardViewController($resourceElement) {
+        var vm = this;
+
+        vm.resource = null;
+        vm.toggle = true;
+        vm.flip = flip;
+
+        activate();
+
+        function activate() {
+            vm.resource = $resourceElement;
+        }
+
+        function flip() {
+            vm.toggle = vm.toggle ? false : true;
+        }
+    }
+
+    DefinitionViewController.$inject = ['$resourceElement'];
+    /* @ngInject */
+    function DefinitionViewController($resourceElement) {
+        var vm = this;
+
+        vm.resource = null;
+        vm.toggle = true;
+        vm.flip = flip;
+
+        activate();
+
+        function activate() {
+            vm.resource = $resourceElement;
+        }
+
+        function flip() {
+            vm.toggle = vm.toggle ? false : true;
         }
     }
 

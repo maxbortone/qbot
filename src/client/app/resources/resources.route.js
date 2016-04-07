@@ -42,7 +42,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/resources/note.view.html',
-                            controller: 'ResourceViewController',
+                            controller: 'NoteViewController',
                             controllerAs: 'vm',
                             resolve: {
                                 $resourceElement: ['$q', '$stateParams', 'Resource',
@@ -92,7 +92,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/resources/definition.view.html',
-                            controller: 'ResourceViewController',
+                            controller: 'DefinitionViewController',
                             controllerAs: 'vm',
                             resolve: {
                                 $resourceElement: ['$q', '$stateParams', 'Resource',
@@ -127,7 +127,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/resources/card.view.html',
-                            controller: 'ResourceViewController',
+                            controller: 'CardViewController',
                             controllerAs: 'vm',
                             resolve: {
                                 $resourceElement: ['$q', '$stateParams', 'Resource',

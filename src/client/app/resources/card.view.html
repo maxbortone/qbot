@@ -1,12 +1,13 @@
 <md-content layout="column" layout-padding flex class="md-padding">
-  <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
-    <p>
-      {{vm.resource.front}}
-    </p>
-  </md-whiteframe>
-  <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
-    <p>
-      {{vm.resource.back}}
-    </p>
-  </md-whiteframe>
+    <md-card layout-padding class="qb-card" ng-class="vm.toggle ? qb-front : qb-back">
+        <md-card-content flex>
+            <h2 ng-show="vm.toggle">{{vm.resource.front}}</h2>
+            <div ng-hide="vm.toggle">
+                {{vm.resource.back}}
+            </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="vm.flip()">Flip</md-button>
+        </md-card-actions>
+    </md-card>
 </md-content>

@@ -1,12 +1,17 @@
 <md-content layout="column" layout-padding flex class="md-padding">
-  <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
-    <p>
-      {{vm.resource.title}}
-    </p>
-  </md-whiteframe>
-  <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
-    <p>
-      {{vm.resource.content}}
-    </p>
-  </md-whiteframe>
+    <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
+      <div layout-padding layout-fill layout="column">
+        <md-toolbar class="md-primary md-hue-1" layout="row">
+            <h2 class="md-toolbar-tools">{{vm.resource.title}}</h2>
+            <span flex></span>
+          <md-button ng-click="vm.edit()"><md-icon>mode_edit</md-icon></md-button>
+          <md-button ng-click="vm.delete()"><md-icon>delete_forever</md-icon></md-button>
+        </md-toolbar>
+        <md-content flex layout-padding class="page-container">
+            <div class="page" layout-padding>
+                {{vm.resource.content}}
+            </div>
+        </md-content>
+      </div>
+    </md-whiteframe>
 </md-content>
