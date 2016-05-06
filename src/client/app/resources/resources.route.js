@@ -121,6 +121,21 @@
                 }
             },
             {
+                state: 'card.create',
+                config: {
+                    url: '/create',
+                    views: {
+                        'main@': {
+                            templateUrl: 'app/resources/card.create.html',
+                            controller: 'ResourceCreateController',
+                            controllerAs: 'vm'
+                        }
+                    },
+                    authenticate: true,
+                    previousState: true
+                }
+            },
+            {
                 state: 'card.view',
                 config: {
                     url: '/:resourceId',
@@ -142,21 +157,6 @@
                                         return def.promise;
                                 }]
                             }
-                        }
-                    },
-                    authenticate: true,
-                    previousState: true
-                }
-            },
-            {
-                state: 'card.create',
-                config: {
-                    url: '/create',
-                    views: {
-                        'main@': {
-                            templateUrl: 'app/resources/card.create.html',
-                            controller: 'ResourceCreateController',
-                            controllerAs: 'vm'
                         }
                     },
                     authenticate: true,
