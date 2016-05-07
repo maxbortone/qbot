@@ -32,7 +32,8 @@
     "angularfire": "~1.1.3",
     "angular-material": "~0.11.4",
     "angularfire-resource": "~0.0.7",
-    "angular-katex": "~0.10.0"
+    "angular-katex": "~0.10.0",
+    "angular-ui-ace": "~0.2.3"
   },
   "resolutions": {
     "angular": "1.3.17",

@@ -2,7 +2,9 @@
     'use strict';
     angular
         .module('app.resources')
-        .controller('ResourceCreateController', ResourceCreateController)
+        .controller('NoteCreateController', NoteCreateController)
+        .controller('CardCreateController', CardCreateController)
+        .controller('DefinitionCreateController', DefinitionCreateController)
         .controller('NoteViewController', NoteViewController)
         .controller('CardViewController', CardViewController)
         .controller('DefinitionViewController', DefinitionViewController)
@@ -10,9 +12,82 @@
         .controller('CardsListController', CardsListController)
         .controller('DefinitionsListController', DefinitionsListController);
 
-    ResourceCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
+
+    NoteCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
     /* @ngInject */
-    function ResourceCreateController($scope, $location, $previousState, logger, $currentUser, Resource) {
+    function NoteCreateController($scope, $location, $previousState, logger, $currentUser, Resource) {
+        var vm = this;
+        var fromId = null;
+
+        vm.resource = null;
+        vm.notes = null;
+        vm.createResource = createResource;
+        vm.cancel = cancel;
+
+        activate();
+
+        function activate() {
+            vm.resource = Resource.$new();
+        }
+
+        function createResource(resource, type) {
+            var course = $currentUser.$displayedCourse();
+            resource.type = type;
+            course['$' + type + 's']().$add(resource)
+                .then(function() {
+                    course.incrementResourceCount(type);
+                    vm.resource = null;
+                    $location.path($previousState.URL);
+                }, function(reason) {
+                    logger.error(reason);
+                });
+        }
+
+        function cancel() {
+            vm.resource = null;
+            $location.path($previousState.URL);
+        }
+    }
+
+    CardCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
+    /* @ngInject */
+    function CardCreateController($scope, $location, $previousState, logger, $currentUser, Resource) {
+        var vm = this;
+
+        vm.resource = null;
+        vm.save = save;
+        vm.cancel = cancel;
+
+        activate();
+
+        function activate() {
+            vm.resource = Resource.$new();
+            vm.resource.front = '';
+            vm.resource.back = '';
+        }
+
+        function save(resource) {
+            var course = $currentUser.$displayedCourse();
+            resource.type = 'card';
+            course['$cards']().$add(resource)
+                .then(function() {
+                    course.incrementResourceCount('card');
+                    vm.resource = null;
+                    $location.path($previousState.URL);
+                }, function(reason) {
+                    logger.error(reason);
+                });
+        }
+
+        function cancel() {
+            vm.resource = null;
+            $location.path($previousState.URL);
+        }
+    }
+
+    DefinitionCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
+    /* @ngInject */
+    function DefinitionCreateController($scope, $location, $previousState, logger, $currentUser, Resource) {
         var vm = this;
         var fromId = null;
 

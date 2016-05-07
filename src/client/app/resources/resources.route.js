@@ -27,7 +27,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/resources/note.create.html',
-                            controller: 'ResourceCreateController',
+                            controller: 'NoteCreateController',
                             controllerAs: 'vm'
                         }
                     },
@@ -77,7 +77,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/resources/definition.create.html',
-                            controller: 'ResourceCreateController',
+                            controller: 'DefinitionCreateController',
                             controllerAs: 'vm'
                         }
                     },
@@ -127,7 +127,7 @@
                     views: {
                         'main@': {
                             templateUrl: 'app/resources/card.create.html',
-                            controller: 'ResourceCreateController',
+                            controller: 'CardCreateController',
                             controllerAs: 'vm'
                         }
                     },

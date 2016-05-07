@@ -1,19 +1,28 @@
 <md-content layout="column" layout-padding flex class="md-padding">
-    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center">
-        <md-content layout-padding>
-            <h3 class="md-headline">Create a new card</h3>
-            <md-input-container>
-                <label>Front</label>
-                <textarea ng-model="vm.resource.front"></textarea>
-            </md-input-container>
-            <md-input-container>
-                <label>Back</label>
-                <textarea ng-model="vm.resource.back"></textarea>
-            </md-input-container>
-            <div layout="row">
-              <md-button class="md-raised md-primary" ng-click="vm.createResource(vm.resource, 'card')">Create</md-button>
-              <md-button class="md-raised md-warn" ng-click="vm.cancel()">Cancel</md-button>
+    <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
+      <div layout-padding layout-fill layout="column">
+        <md-toolbar class="md-primary md-hue-1" layout="row">
+            <h2 class="md-toolbar-tools">Create a new card</h2>
+            <span flex></span>
+            <md-button ng-click="vm.save()"><md-icon>save</md-icon></md-button>
+            <md-button ng-click="vm.delete()"><md-icon>delete_forever</md-icon></md-button>
+        </md-toolbar>
+        <md-content flex layout-padding layout="column" class="page-container">
+            <div layout="column" layout-fill>
+                <h3>Front</h3>
+                <div layout="row">
+                    <div flex layout-margin ui-ace ng-model="vm.resource.front"></div>
+                    <pre flex layout-margin class="qb-preview" katex bind="vm.resource.front" auto-render></pre>
+                </div>
+            </div>
+            <div layout="column" layout-fill>
+                <h3>Back</h3>
+                <div layout="row">
+                    <div flex layout-margin ui-ace ng-model="vm.resource.back"></div>
+                    <pre flex layout-margin class="qb-preview" katex bind="vm.resource.back" auto-render></pre>
+                </div>
             </div>
         </md-content>
+      </div>
     </md-whiteframe>
 </md-content>

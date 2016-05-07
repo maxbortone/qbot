@@ -1,9 +1,17 @@
 (function () {
     'use strict';
 
-    var core = angular.module('app.core');
+    var config = {
+        appErrorPrefix: '[qbot Error] ',
+        appTitle: 'qbot'
+    };
 
-    core.config(toastrConfig);
+    angular
+        .module('app.core')
+        .config(toastrConfig)
+        .config(configure)
+        .run(katexOptions)
+        .value('config', config);
 
     toastrConfig.$inject = ['toastr'];
     /* @ngInject */
@@ -11,15 +19,6 @@
         toastr.options.timeOut = 4000;
         toastr.options.positionClass = 'toast-bottom-right';
     }
-
-    var config = {
-        appErrorPrefix: '[qbot Error] ',
-        appTitle: 'qbot'
-    };
-
-    core.value('config', config);
-
-    core.config(configure);
 
     configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
     /* @ngInject */
@@ -29,6 +28,20 @@
         }
         exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
+    }
+
+    katexOptions.$inject = ['katexConfig'];
+    /* @ngInject */
+    function katexOptions(katexConfig) {
+        katexConfig.defaultOptions.delimiters =
+        [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "$", right: "$", display: false}
+        ];
+        katexConfig.defaultOptions.throwOnError = false;
+        katexConfig.defaultOptions.errorColor = '#d85';
     }
 
 })();
