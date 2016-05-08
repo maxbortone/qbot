@@ -1,10 +1,7 @@
 <md-content layout="column" layout-padding flex class="md-padding">
-    <md-card layout-padding class="qb-card" ng-class="vm.toggle ? qb-front : qb-back">
-        <md-card-content flex>
-            <h2 ng-show="vm.toggle">{{vm.resource.front}}</h2>
-            <div ng-hide="vm.toggle">
-                {{vm.resource.back}}
-            </div>
+    <md-card layout-padding ng-class="{'qb-card-front': vm.toggle,'qb-card-back': !vm.toggle}" class="qb-card">
+        <md-card-content flex layout="row" layout-align="center center">
+            <div katex auto-render bind="vm.activeContent"></div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
             <md-button ng-click="vm.flip()">Flip</md-button>

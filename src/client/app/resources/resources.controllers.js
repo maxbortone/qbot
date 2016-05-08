@@ -66,10 +66,10 @@
             vm.resource.back = '';
         }
 
-        function save(resource) {
+        function save() {
             var course = $currentUser.$displayedCourse();
-            resource.type = 'card';
-            course['$cards']().$add(resource)
+            vm.resource.type = 'card';
+            course['$cards']().$add(vm.resource)
                 .then(function() {
                     course.incrementResourceCount('card');
                     vm.resource = null;
@@ -141,6 +141,7 @@
         var vm = this;
 
         vm.resource = null;
+        vm.activeContent = null;
         vm.toggle = true;
         vm.flip = flip;
 
@@ -148,10 +149,17 @@
 
         function activate() {
             vm.resource = $resourceElement;
+            vm.activeContent = vm.resource.front;
         }
 
         function flip() {
-            vm.toggle = vm.toggle ? false : true;
+            if (vm.toggle) {
+                vm.toggle = false;
+                vm.activeContent = vm.resource.back;
+            } else {
+                vm.toggle = true;
+                vm.activeContent = vm.resource.front;
+            }
         }
     }
 
