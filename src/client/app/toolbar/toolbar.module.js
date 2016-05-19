@@ -15,6 +15,7 @@
         activate();
 
         function activate() {
+            console.log('activating toolbar');
             Auth.$onAuth(function(authData) {
                 if (authData) {
                     User.$find(authData.uid)

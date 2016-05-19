@@ -4,9 +4,9 @@
         .module('app.login', ['firebase', 'firebase.auth', 'app.auth', 'blocks.logger'])
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$firebaseObject', 'Auth', 'AuthenticationService', 'logger'];
+    LoginController.$inject = ['$state', '$firebaseObject', 'Auth', 'AuthenticationService', 'logger'];
     /* @ngInject */
-    function LoginController($location, $firebaseObject, Auth, AuthenticationService, logger) {
+    function LoginController($state, $firebaseObject, Auth, AuthenticationService, logger) {
         var vm = this;
 
         vm.createMode = false;
@@ -17,7 +17,7 @@
 
         function activate() {
             if (Auth.$getAuth()) {
-                $location.path(homeRedirectPath);
+                $state.go('home');
             }
         }
 
@@ -39,7 +39,7 @@
 
         function redirect(response) {
             logger.success('You successfully logged in!');
-            $location.path('/');
+            $state.go('home');
         }
 
         function showError(error) {
