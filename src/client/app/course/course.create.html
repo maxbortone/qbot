@@ -6,6 +6,13 @@
                 <md-icon>school</md-icon>
                 <input ng-model="vm.newCourse.name" type="text" placeholder="Course name">
             </md-input-container>
+            <md-radio-group ng-model="vm.newCourse.color">
+                <md-radio-button value="grey">Grey</md-radio-button>
+                <md-radio-button value="green">Green</md-radio-button>
+                <md-radio-button value="yellow">Yellow</md-radio-button>
+                <md-radio-button value="blue">Blue</md-radio-button>
+                <md-radio-button value="purple">Purple</md-radio-button>
+            </md-radio-group>
             <div layout="row">
                 <md-button class="md-raised md-primary" ng-click="vm.createCourse(vm.newCourse)">Create</md-button>
                 <md-button class="md-raised md-warn" ng-click="vm.cancel()">Cancel</md-button>

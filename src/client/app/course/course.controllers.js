@@ -44,6 +44,7 @@
         vm.user = null;
         vm.newCourse = null;
         vm.createCourse = createCourse;
+        vm.cancel = cancel;
 
         activate();
 
@@ -52,7 +53,6 @@
         }
 
         function createCourse(obj) {
-            console.log(obj);
             var course = Course.$new(obj);
             course.$save()
                 .then(function() {
@@ -60,8 +60,13 @@
                     $currentUser.$setDisplayedCourse(course);
                 })
                 .then(function() {
-                    $state.go('home');
+                    $state.go('course', {'id': course.$id, 'resource': 'notes'});
                 });
+        }
+
+        function cancel() {
+            vm.newCourse = null;
+            $state.go('home');
         }
     }
 })();
