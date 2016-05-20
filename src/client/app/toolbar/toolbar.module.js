@@ -15,7 +15,6 @@
         activate();
 
         function activate() {
-            console.log('activating toolbar');
             Auth.$onAuth(function(authData) {
                 if (authData) {
                     User.$find(authData.uid)
@@ -30,11 +29,11 @@
                 if (toState.name == 'account' || toState.name == 'home' ) {
                     $rootScope.displayedCourse = null;
                 }
-            })
+            });
         }
 
         function logout() {
-            vm.userName = '';
+            vm.user = null;
             Auth.$unauth();
             $state.go('login');
         }
