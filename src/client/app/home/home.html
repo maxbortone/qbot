@@ -1,8 +1,16 @@
-<md-content layout="column" layout-padding flex class="md-padding">
-    <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="start center">
-      <div layout-padding layout-fill layout="column">
+<md-whiteframe class="md-whiteframe-1dp" layout="row" layout-align="center center">
+    <div flex="80" layout-margin layout="column">
+        <h1 class="md-headline">Welcome back to QBOT</h1>
+        <p>Continue studying for your courses with the resources below.</p>
+    </div>
+</md-whiteframe>
+<div flex layout="row" layout-align="center center">
+    <div flex="80" layout-margin layout="column">
+        <div layout="row">
+            <h3>Your courses</h3>
+        </div>
         <md-grid-list class="qb-grid-list" md-cols-sm="2" md-cols-gt-lg="6" md-cols="4" md-row-height="16:9">
-            <md-grid-tile class="{{course.color}}" ng-repeat="course in vm.courses" md-colspan="1" md-rowspan="2">
+            <md-grid-tile class="qb-{{course.color}}" ng-repeat="course in vm.courses" md-colspan="1" md-rowspan="2">
                 <md-grid-tile-header layout-padding><a ui-sref="course({id: course.$id, resource: 'notes'})">{{course.name}}</a></md-grid-tile-header>
                 <md-grid-tile-footer layout-align="end center" layout-padding>
                     <span ng-if="course.notes">
@@ -23,6 +31,8 @@
                 </md-grid-tile-footer>
             </md-grid-tile>
         </md-grid-list>
-      </div>
-    </md-whiteframe>
-</md-content>
+    </div>
+</div>
+<md-button aria-label="New course" class="md-fab md-primary qb-fixed">
+    <md-icon>add</md-icon>
+</md-button>
