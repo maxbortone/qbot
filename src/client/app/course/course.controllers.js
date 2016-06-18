@@ -10,9 +10,13 @@
     function CourseController($scope, logger, $displayedCourse, $activeResource, $state) {
         var vm = this;
         var resources = ['notes', 'definitions', 'cards'];
+        var tools = ['memorize'];
+        var tests = ['T/F', 'quiz'];
 
         vm.course = null;
         vm.resources = [];
+        vm.tools = [];
+        vm.tests = [];
         vm.activeResource = '';
         vm.onTabSelect = onTabSelect;
 
@@ -29,6 +33,8 @@
             if (!vm.resources) {
                 logger.warning('No resources available!');
             }
+            vm.tools = tools;
+            vm.tests = tests;
         }
 
         function onTabSelect(resource) {

@@ -1,13 +1,64 @@
-<md-tabs class="md-primary md-hue-1" md-stretch-tabs="always" md-dynamic-height="true">
-    <md-tab ng-repeat="resource in vm.resources" md-on-select="vm.onTabSelect(resource)" md-active="resource == vm.activeResource">
-        <md-tab-label>
-            {{resource}}
-        </md-tab-label>
-    </md-tab>
-</md-tabs>
-<div ui-view="list">
+<div layout="row" layout-fill flex>
+    <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-md')">
+      <!-- <md-toolbar class="md-primary md-hue-1">
+        <div class="md-toolbar-tools">
+            <a ui-sref="course" flex><md-icon>home</md-icon>{{vm.course.name | uppercase}}</a>
+            <md-menu md-offset="60 -7">
+                <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-menu-origin>settings</md-icon>
+                </md-button>
+                <md-menu-content width="2">
+                    <md-menu-item>
+                        <md-button ui-sref="course.settings"> <span md-menu-align-target>Course settings</span> </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ui-sref="course.permissions"> <span md-menu-align-target>Permissions</span> </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+      </md-toolbar> -->
+      <md-list class="qb-sidenav">
+          <div layout="row">
+              <md-list-item flex class="qb-list-item" ng-click="navigateTo(vm.course.name)">
+                  <md-icon>home</md-icon><p>{{vm.course.name | uppercase}}</p>
+              </md-list-item>
+              <md-menu md-offset="60 -7">
+                  <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                      <md-icon md-menu-origin>settings</md-icon>
+                  </md-button>
+                  <md-menu-content width="2">
+                      <md-menu-item>
+                          <md-button ui-sref="course.settings"> <span md-menu-align-target>Course settings</span> </md-button>
+                      </md-menu-item>
+                      <md-menu-item>
+                          <md-button ui-sref="course.permissions"> <span md-menu-align-target>Permissions</span> </md-button>
+                      </md-menu-item>
+                  </md-menu-content>
+              </md-menu>
+          </div>
+          <md-divider></md-divider>
+          <md-subheader class="md-no-sticky qb-subheader">Create</md-subheader>
+          <md-list-item class="qb-list-item" ng-click="navigateTo(resource)" ng-repeat="resource in vm.resources">
+              <p>{{resource | titlecase}}</p>
+          </md-list-item>
+          <md-divider></md-divider>
+          <md-subheader class="md-no-sticky qb-subheader">Learn</md-subheader>
+          <md-list-item class="qb-list-item" ng-click="navigateTo(tool)" ng-repeat="tool in vm.tools">
+              <p>{{tool | titlecase}}</p>
+          </md-list-item>
+          <md-divider></md-divider>
+          <md-subheader class="md-no-sticky qb-subheader">Test</md-subheader>
+          <md-list-item class="qb-list-item" ng-click="navigateTo(test)" ng-repeat="test in vm.tests">
+              <p>{{test | titlecase}}</p>
+          </md-list-item>
+      </md-list>
+    </md-sidenav>
+    <md-content ui-view="content">
 
+    </md-content>
 </div>
+
 <md-fab-speed-dial md-direction="up" class="fling qb-fixed">
     <md-fab-trigger>
         <md-button aria-label="New resource menu" class="md-fab md-primary">

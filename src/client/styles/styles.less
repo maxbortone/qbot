@@ -81,3 +81,26 @@ body {
     border: solid 1px @brand-border;
     padding: 0px 5px;
 }
+
+.qb-sidenav {
+    padding-top: 0px;
+}
+
+.qb-list-item {
+    > button:hover {
+        background-color: #f5f5f5 !important;
+    }
+
+    &:first-child > button {
+        border-radius: 0px;
+        border-right: solid 1px #e1e1e1;
+
+        & md-icon, p {
+            color: #795548;
+        }
+    }
+}
+
+.qb-subheader {
+    text-transform: uppercase;
+}
