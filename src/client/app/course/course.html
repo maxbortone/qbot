@@ -20,7 +20,7 @@
       </md-toolbar> -->
       <md-list class="qb-sidenav">
           <div layout="row">
-              <md-list-item flex class="qb-list-item" ng-click="navigateTo(vm.course.name)">
+              <md-list-item flex class="qb-list-item" ng-click="vm.navigateTo('overview')">
                   <md-icon>home</md-icon><p>{{vm.course.name | uppercase}}</p>
               </md-list-item>
               <md-menu md-offset="60 -7">
@@ -39,17 +39,17 @@
           </div>
           <md-divider></md-divider>
           <md-subheader class="md-no-sticky qb-subheader">Create</md-subheader>
-          <md-list-item class="qb-list-item" ng-click="navigateTo(resource)" ng-repeat="resource in vm.resources">
+          <md-list-item class="qb-list-item" ng-click="vm.navigateTo(resource)" ng-repeat="resource in vm.resources">
               <p>{{resource | titlecase}}</p>
           </md-list-item>
           <md-divider></md-divider>
           <md-subheader class="md-no-sticky qb-subheader">Learn</md-subheader>
-          <md-list-item class="qb-list-item" ng-click="navigateTo(tool)" ng-repeat="tool in vm.tools">
+          <md-list-item class="qb-list-item" ng-click="vm.navigateTo(tool)" ng-repeat="tool in vm.tools">
               <p>{{tool | titlecase}}</p>
           </md-list-item>
           <md-divider></md-divider>
           <md-subheader class="md-no-sticky qb-subheader">Test</md-subheader>
-          <md-list-item class="qb-list-item" ng-click="navigateTo(test)" ng-repeat="test in vm.tests">
+          <md-list-item class="qb-list-item" ng-click="vm.navigateTo(test)" ng-repeat="test in vm.tests">
               <p>{{test | titlecase}}</p>
           </md-list-item>
       </md-list>

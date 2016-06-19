@@ -5,9 +5,9 @@
         .controller('CourseController', CourseController)
         .controller('CourseCreateController', CourseCreateController)
 
-    CourseController.$inject = ['$scope', 'logger', '$displayedCourse', '$activeResource', '$state'];
+    CourseController.$inject = ['$scope', 'logger', '$displayedCourse', '$state'];
     /* @ngInject */
-    function CourseController($scope, logger, $displayedCourse, $activeResource, $state) {
+    function CourseController($scope, logger, $displayedCourse, $state) {
         var vm = this;
         var resources = ['notes', 'definitions', 'cards'];
         var tools = ['memorize'];
@@ -17,13 +17,11 @@
         vm.resources = [];
         vm.tools = [];
         vm.tests = [];
-        vm.activeResource = '';
-        vm.onTabSelect = onTabSelect;
+        vm.navigateTo = navigateTo;
 
         activate();
 
         function activate() {
-            vm.activeResource = $activeResource;
             vm.course = $displayedCourse;
             angular.forEach(resources, function(resource, key) {
                 if (vm.course[resource]) {
@@ -37,8 +35,8 @@
             vm.tests = tests;
         }
 
-        function onTabSelect(resource) {
-            $state.go('course', {'id': vm.course.$id, 'resource': resource});
+        function navigateTo(target) {
+            $state.go('course.'+target, {'id': vm.course.$id});
         }
     }
 

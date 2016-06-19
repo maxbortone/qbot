@@ -16,38 +16,15 @@
             {
                 state: 'course',
                 config: {
-                    url: '/course/:id/:resource',
+                    abstract: 'true',
+                    url: '/course/:id',
                     views: {
                         'main@': {
                             templateUrl: 'app/course/course.html',
                             controller: 'CourseController',
                             controllerAs: 'vm'
-                        },
-                        'list@course': {
-                            templateUrl: function($stateParams) {
-                                return 'src/client/app/resources/' + $stateParams.resource + '.list.html';
-                            },
-                            controllerProvider: function($stateParams) {
-                                var res = $stateParams.resource;
-                                return res.charAt(0).toUpperCase() + res.slice(1) + 'ListController';
-                            },
-                            controllerAs: 'vm',
-                            resolve: {
-                                $resourceElements: ['$q', '$activeResource', '$currentUser', '$displayedCourse',
-                                    function($q, $activeResource, $currentUser, $displayedCourse) {
-                                        var def = $q.defer();
-                                        $displayedCourse['$' + $activeResource]()
-                                            .$loaded(function(result) {
-                                                def.resolve(result);
-                                            }, function(error) {
-                                                def.reject(error);
-                                            });
-                                        return def.promise;
-                                }]
-                            }
                         }
                     },
-                    authenticate: true,
                     resolve: {
                         $displayedCourse: ['$q', '$stateParams', '$rootScope', 'Course', '$currentUser',
                             function($q, $stateParams, $rootScope, Course, $currentUser) {
@@ -61,11 +38,21 @@
                                         def.reject(error);
                                     });
                                 return def.promise;
-                        }],
-                        $activeResource: ['$stateParams', function($stateParams) {
-                            return $stateParams.resource;
                         }]
-                    }
+                    },
+                    authenticate: true
+                }
+            },
+            {
+                state: 'course.overview',
+                config: {
+                    url: '/overview',
+                    views: {
+                        'content@course': {
+                            templateUrl: 'app/course/course.overview.html',
+                        }
+                    },
+                    authenticate: true
                 }
             },
             {
