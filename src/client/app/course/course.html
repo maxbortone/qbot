@@ -1,23 +1,5 @@
 <div layout="row" layout-fill flex>
     <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-md')">
-      <!-- <md-toolbar class="md-primary md-hue-1">
-        <div class="md-toolbar-tools">
-            <a ui-sref="course" flex><md-icon>home</md-icon>{{vm.course.name | uppercase}}</a>
-            <md-menu md-offset="60 -7">
-                <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon md-menu-origin>settings</md-icon>
-                </md-button>
-                <md-menu-content width="2">
-                    <md-menu-item>
-                        <md-button ui-sref="course.settings"> <span md-menu-align-target>Course settings</span> </md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                        <md-button ui-sref="course.permissions"> <span md-menu-align-target>Permissions</span> </md-button>
-                    </md-menu-item>
-                </md-menu-content>
-            </md-menu>
-        </div>
-      </md-toolbar> -->
       <md-list class="qb-sidenav">
           <div layout="row">
               <md-list-item flex class="qb-list-item" ng-click="vm.navigateTo('overview')">
@@ -54,7 +36,7 @@
           </md-list-item>
       </md-list>
     </md-sidenav>
-    <md-content ui-view="content">
+    <md-content ui-view="content" layout="column" flex>
 
     </md-content>
 </div>
