@@ -16,17 +16,17 @@
                     <span ng-if="course.notes">
                         <md-tooltip md-direction="top">Note</md-tooltip>
                         <md-icon>description</md-icon>
-                        {{course.notes.count}}
+                        {{vm.getLength(course.notes)}}
                     </span>
                     <span ng-if="course.definitions">
                         <md-tooltip md-direction="top">Definition</md-tooltip>
                         <md-icon>web</md-icon>
-                        {{course.definitions.count}}
+                        {{vm.getLength(course.definitions)}}
                     </span>
                     <span ng-if="course.cards">
                         <md-tooltip md-direction="top">Card</md-tooltip>
                         <md-icon>chat</md-icon>
-                        {{course.cards.count}}
+                        {{vm.getLength(course.cards)}}
                     </span>
                 </md-grid-tile-footer>
             </md-grid-tile>

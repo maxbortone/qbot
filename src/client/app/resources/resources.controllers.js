@@ -35,7 +35,6 @@
             resource.type = type;
             course['$' + type + 's']().$add(resource)
                 .then(function() {
-                    course.incrementResourceCount(type);
                     vm.resource = null;
                     $location.path($previousState.URL);
                 }, function(reason) {
@@ -71,7 +70,6 @@
             vm.resource.type = 'card';
             course['$cards']().$add(vm.resource)
                 .then(function() {
-                    course.incrementResourceCount('card');
                     vm.resource = null;
                     $location.path($previousState.URL);
                 }, function(reason) {
@@ -107,7 +105,6 @@
             resource.type = type;
             course['$' + type + 's']().$add(resource)
                 .then(function() {
-                    course.incrementResourceCount(type);
                     vm.resource = null;
                     $location.path($previousState.URL);
                 }, function(reason) {

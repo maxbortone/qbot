@@ -11,6 +11,7 @@
 
         vm.user = null;
         vm.courses = null;
+        vm.getLength = getLength;
 
         activate();
 
@@ -18,6 +19,10 @@
             vm.user = $currentUser;
             vm.courses = $courses;
             logger.success('Home view activated');
+        }
+
+        function getLength(obj) {
+            return Object.keys(obj).length;
         }
     }
 })();
