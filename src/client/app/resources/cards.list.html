@@ -1,7 +1,33 @@
-<md-list>
-    <md-list-item class="md-2-line" ng-repeat="element in vm.elements">
-        <div class="md-list-item-text compact">
-            <h3><a ui-sref="card.view({resourceId: element.$id})">{{element.front}}</a></h3>
+<div layout="column" layout-fill>
+    <md-toolbar class="md-hue-1">
+        <div class="md-toolbar-tools">
+            <h2><span>Cards</span></h2>
         </div>
-    </md-list-item>
-</md-list>
+    </md-toolbar>
+    <md-content layout="column" flex class="md-hue-1">
+        <md-card class="qb-module-card">
+            <md-card-content>
+                <md-toolbar class="md-warn md-hue-1">
+                    <div class="md-toolbar-tools">
+                        <md-input-container md-no-float>
+                            <md-icon>search</md-icon>
+                            <input type="text" ng-model="vm.search" placeholder="Search by content">
+                        </md-input-container>
+                    </div>
+                </md-toolbar>
+                <md-list>
+                    <md-list-item ng-repeat="element in vm.elements" class="md-2-line">
+                        <div class="md-list-item-text">
+                            <h3 katex auto-render bind="element.front"></h3>
+                            <p>#{{$index+1}} created on {{element.createdAt | date:"dd/MM/yyyy 'at' h:mm a" }}</p>
+                        </div>
+                        <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+            <md-card-footer>
+            Card footer
+            </md-card-footer>
+        </md-card>
+    </md-content>
+</div>
