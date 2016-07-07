@@ -48,13 +48,13 @@
         }
     }
 
-    CardCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
+    CardCreateController.$inject = ['$scope', '$mdDialog', 'Resource'];
     /* @ngInject */
-    function CardCreateController($scope, $location, $previousState, logger, $currentUser, Resource) {
+    function CardCreateController($scope, $mdDialog, Resource) {
         var vm = this;
 
         vm.resource = null;
-        vm.save = save;
+        vm.add = add;
         vm.cancel = cancel;
 
         activate();
@@ -65,21 +65,12 @@
             vm.resource.back = '';
         }
 
-        function save() {
-            var course = $currentUser.$displayedCourse();
-            vm.resource.type = 'card';
-            course['$cards']().$add(vm.resource)
-                .then(function() {
-                    vm.resource = null;
-                    $location.path($previousState.URL);
-                }, function(reason) {
-                    logger.error(reason);
-                });
+        function add() {
+            $mdDialog.hide(vm.resource);
         }
 
         function cancel() {
-            vm.resource = null;
-            $location.path($previousState.URL);
+            $mdDialog.cancel();
         }
     }
 
@@ -194,18 +185,41 @@
         }
     }
 
-    CardsListController.$inject = ['$resourceElements'];
+    CardsListController.$inject = ['$resourceElements', '$mdDialog', '$currentUser', 'logger'];
     /* @ngInject */
-    function CardsListController($resourceElements) {
+    function CardsListController($resourceElements, $mdDialog, $currentUser, logger) {
         var vm = this;
 
         vm.elements = [];
+        vm.addCard = addCard;
 
         activate();
 
         function activate() {
             vm.elements = $resourceElements;
         }
+
+        function addCard (ev) {
+            $mdDialog.show({
+                controller: CardCreateController,
+                controllerAs: 'vm',
+                templateUrl: 'app/resources/card.create.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false
+            }).then(function(res) {
+                var course = $currentUser.$displayedCourse();
+                res.type = 'card';
+                course['$cards']().$add(res)
+                    .then(function() {
+                        logger.success('New card was created');
+                    }, function(reason) {
+                        logger.error(reason);
+                    });
+            }, function() {
+                logger.warning('Action was canceled');
+            })
+        };
     }
 
     DefinitionsListController.$inject = ['$resourceElements'];
