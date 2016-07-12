@@ -1,0 +1,34 @@
+<md-dialog layout="column" flex>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit card</h2>
+            <span flex></span>
+            <md-button class="md-primary" ng-click="vm.cancel()">
+                Cancel
+            </md-button>
+            <md-button class="md-warn md-hue-1 md-raised" ng-click="vm.save()">
+                Save
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="front">
+                <md-content class="md-padding">
+                    <div layout="row">
+                        <div flex layout-margin ui-ace ng-model="vm.resource.front"></div>
+                        <pre flex layout-margin class="qb-preview" katex bind="vm.resource.front" auto-render></pre>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="back">
+                <md-content class="md-padding">
+                    <div layout="row">
+                        <div flex layout-margin ui-ace ng-model="vm.resource.back"></div>
+                        <pre flex layout-margin class="qb-preview" katex bind="vm.resource.back" auto-render></pre>
+                    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+</md-dialog>

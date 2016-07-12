@@ -2,15 +2,16 @@
     'use strict';
     angular
         .module('app.resources')
-        .controller('NoteCreateController', NoteCreateController)
-        .controller('CardCreateController', CardCreateController)
-        .controller('DefinitionCreateController', DefinitionCreateController)
-        .controller('NoteViewController', NoteViewController)
-        .controller('CardViewController', CardViewController)
-        .controller('DefinitionViewController', DefinitionViewController)
-        .controller('NotesListController', NotesListController)
         .controller('CardsListController', CardsListController)
-        .controller('DefinitionsListController', DefinitionsListController);
+        .controller('CardCreateController', CardCreateController)
+        .controller('CardEditController', CardEditController)
+        .controller('CardViewController', CardViewController)
+        .controller('NotesListController', NotesListController)
+        .controller('NoteCreateController', NoteCreateController)
+        .controller('NoteViewController', NoteViewController)
+        .controller('DefinitionsListController', DefinitionsListController)
+        .controller('DefinitionCreateController', DefinitionCreateController)
+        .controller('DefinitionViewController', DefinitionViewController);
 
 
     NoteCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
@@ -66,6 +67,30 @@
         }
 
         function add() {
+            $mdDialog.hide(vm.resource);
+        }
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
+    }
+
+    CardEditController.$inject = ['$scope', '$mdDialog', '$resourceElement'];
+    /* @ngInject */
+    function CardEditController($scope, $mdDialog, $resourceElement) {
+        var vm = this;
+
+        vm.resource = null;
+        vm.save = save;
+        vm.cancel = cancel;
+
+        activate();
+
+        function activate() {
+            vm.resource = $resourceElement;
+        }
+
+        function save() {
             $mdDialog.hide(vm.resource);
         }
 
@@ -185,13 +210,16 @@
         }
     }
 
-    CardsListController.$inject = ['$resourceElements', '$mdDialog', '$currentUser', 'logger'];
+    CardsListController.$inject = ['$resourceElements', '$mdDialog', '$currentUser', 'Ref', 'logger'];
     /* @ngInject */
-    function CardsListController($resourceElements, $mdDialog, $currentUser, logger) {
+    function CardsListController($resourceElements, $mdDialog, $currentUser, Ref, logger) {
         var vm = this;
 
         vm.elements = [];
         vm.addCard = addCard;
+        vm.viewCard = viewCard;
+        vm.editCard = editCard;
+        vm.deleteCard = deleteCard;
 
         activate();
 
@@ -199,27 +227,62 @@
             vm.elements = $resourceElements;
         }
 
-        function addCard (ev) {
+        function addCard () {
             $mdDialog.show({
                 controller: CardCreateController,
                 controllerAs: 'vm',
                 templateUrl: 'app/resources/card.create.html',
                 parent: angular.element(document.body),
-                targetEvent: ev,
                 clickOutsideToClose: false
-            }).then(function(res) {
-                var course = $currentUser.$displayedCourse();
-                res.type = 'card';
-                course['$cards']().$add(res)
-                    .then(function() {
+            }).then(function(el) {
+                vm.elements.$add(el)
+                    .then(function(res) {
                         logger.success('New card was created');
                     }, function(reason) {
                         logger.error(reason);
                     });
             }, function() {
                 logger.warning('Action was canceled');
-            })
+            });
         };
+
+        function viewCard (el) {
+            $mdDialog.show({
+                locals: {$resourceElement: el},
+                controller: CardViewController,
+                controllerAs: 'vm',
+                templateUrl: 'app/resources/card.view.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true
+            });
+        };
+
+        function editCard (el) {
+            $mdDialog.show({
+                locals: {$resourceElement: el},
+                controller: CardEditController,
+                controllerAs: 'vm',
+                templateUrl: 'app/resources/card.edit.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false
+            }).then(function(el) {
+                el.$save()
+                    .then(function(res) {
+                        logger.success('Changes have been saved');
+                    }, function(reason) {
+                        logger.error(reason);
+                    });
+            }, function() {
+                logger.warning('Action was canceled');
+            });
+        };
+
+        function deleteCard(el) {
+            // TODO: quite the hack, need a solution without angularfire-resource
+            vm.elements.$remove(el);
+            var elRef = Ref.child('resources').child(el.$id);
+            elRef.remove();
+        }
     }
 
     DefinitionsListController.$inject = ['$resourceElements'];
