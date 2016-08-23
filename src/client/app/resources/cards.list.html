@@ -18,7 +18,7 @@
                     </div>
                 </md-toolbar>
                 <md-list class="qb-list">
-                    <md-list-item ng-repeat="element in vm.elements" class="md-2-line" md-no-ink ng-click="vm.viewCard(element)">
+                    <md-list-item ng-repeat="element in vm.elements" class="md-2-line" md-no-ink ng-click="vm.viewCard($index)">
                         <div class="md-list-item-text">
                             <h3 katex auto-render bind="element.front"></h3>
                             <p>#{{$index+1}} created on {{element.createdAt | date:"dd/MM/yyyy 'at' h:mm a" }}</p>

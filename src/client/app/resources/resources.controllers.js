@@ -148,31 +148,49 @@
         }
     }
 
-    CardViewController.$inject = ['$resourceElement'];
+    CardViewController.$inject = ['$resourceElements', '$current'];
     /* @ngInject */
-    function CardViewController($resourceElement) {
+    function CardViewController($resourceElements, $current) {
         var vm = this;
+        var resource = null;
 
-        vm.resource = null;
+        vm.current = null;
+        vm.total = null;
         vm.activeContent = null;
         vm.toggle = true;
         vm.flip = flip;
+        vm.prev = prev;
+        vm.next = next;
 
         activate();
 
         function activate() {
-            vm.resource = $resourceElement;
-            vm.activeContent = vm.resource.front;
+            vm.current = $current;
+            vm.total = $resourceElements.length-1;
+            resource = $resourceElements[vm.current];
+            vm.activeContent = resource.front;
         }
 
         function flip() {
             if (vm.toggle) {
                 vm.toggle = false;
-                vm.activeContent = vm.resource.back;
+                vm.activeContent = resource.back;
             } else {
                 vm.toggle = true;
-                vm.activeContent = vm.resource.front;
+                vm.activeContent = resource.front;
             }
+        }
+
+        function prev() {
+            vm.current--;
+            resource = $resourceElements[vm.current];
+            vm.activeContent = resource.front;
+        }
+
+        function next() {
+            vm.current++;
+            resource = $resourceElements[vm.current];
+            vm.activeContent = resource.front;
         }
     }
 
@@ -246,9 +264,9 @@
             });
         };
 
-        function viewCard (el) {
+        function viewCard ($index) {
             $mdDialog.show({
-                locals: {$resourceElement: el},
+                locals: {$resourceElements: vm.elements, $current: $index},
                 controller: CardViewController,
                 controllerAs: 'vm',
                 templateUrl: 'app/resources/card.view.html',

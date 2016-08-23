@@ -67,6 +67,16 @@ body {
     }
 }
 
+.qb-arrow {
+    position: absolute;
+    &-prev {
+        left: 10px;
+    }
+    &-next {
+        right: 10px;
+    }
+}
+
 .qb-card {
     min-height: 300px;
     &-front {
@@ -74,6 +84,12 @@ body {
     }
     &-back {
         background: #ffff8d;
+    }
+    &-content {
+        cursor: pointer;
+        &:focus {
+            outline: none;
+        }
     }
 }
 
