@@ -19,21 +19,28 @@
                   </md-menu-content>
               </md-menu>
           </div>
+          <div ng-if="vm.resources.length > 0">
+              <md-divider></md-divider>
+              <md-subheader class="md-no-sticky qb-subheader">Create</md-subheader>
+              <md-list-item class="qb-list-item" ng-click="vm.navigateTo(resource)" ng-repeat="resource in vm.resources">
+                  <p>{{resource | titlecase}}</p>
+              </md-list-item>
+          </div>
+          <div ng-if="vm.tools.length > 0">
+              <md-divider></md-divider>
+              <md-subheader class="md-no-sticky qb-subheader">Learn</md-subheader>
+              <md-list-item class="qb-list-item" ng-click="vm.navigateTo(tool)" ng-repeat="tool in vm.tools">
+                  <p>{{tool | titlecase}}</p>
+              </md-list-item>
+          </div>
+          <div ng-if="vm.tests.length > 0">
+              <md-divider></md-divider>
+              <md-subheader class="md-no-sticky qb-subheader">Test</md-subheader>
+              <md-list-item class="qb-list-item" ng-click="vm.navigateTo(test)" ng-repeat="test in vm.tests">
+                  <p>{{test | titlecase}}</p>
+              </md-list-item>
+          </div>
           <md-divider></md-divider>
-          <md-subheader class="md-no-sticky qb-subheader">Create</md-subheader>
-          <md-list-item class="qb-list-item" ng-click="vm.navigateTo(resource)" ng-repeat="resource in vm.resources">
-              <p>{{resource | titlecase}}</p>
-          </md-list-item>
-          <md-divider></md-divider>
-          <md-subheader class="md-no-sticky qb-subheader">Learn</md-subheader>
-          <md-list-item class="qb-list-item" ng-click="vm.navigateTo(tool)" ng-repeat="tool in vm.tools">
-              <p>{{tool | titlecase}}</p>
-          </md-list-item>
-          <md-divider></md-divider>
-          <md-subheader class="md-no-sticky qb-subheader">Test</md-subheader>
-          <md-list-item class="qb-list-item" ng-click="vm.navigateTo(test)" ng-repeat="test in vm.tests">
-              <p>{{test | titlecase}}</p>
-          </md-list-item>
       </md-list>
     </md-sidenav>
     <md-content ui-view="content" layout="column" flex>

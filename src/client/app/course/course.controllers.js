@@ -28,11 +28,19 @@
                     vm.resources.push(resource);
                 }
             });
-            if (!vm.resources) {
+            angular.forEach(tools, function(tool, key) {
+                if (vm.course[tool]) {
+                    vm.tools.push(tool);
+                }
+            });
+            angular.forEach(tests, function(test, key) {
+                if (vm.course[test]) {
+                    vm.resources.push(test);
+                }
+            });
+            if (!vm.resources && !vm.tools && !vm.tests) {
                 logger.warning('No resources available!');
             }
-            vm.tools = tools;
-            vm.tests = tests;
         }
 
         function navigateTo(target) {
