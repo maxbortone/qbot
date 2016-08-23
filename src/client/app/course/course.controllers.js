@@ -3,7 +3,7 @@
     angular
         .module('app.course')
         .controller('CourseController', CourseController)
-        .controller('CourseCreateController', CourseCreateController)
+        .controller('CourseCreateController', CourseCreateController);
 
     CourseController.$inject = ['$scope', 'logger', '$displayedCourse', '$state'];
     /* @ngInject */

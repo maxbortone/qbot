@@ -35,10 +35,10 @@
     function katexOptions(katexConfig) {
         katexConfig.defaultOptions.delimiters =
         [
-            {left: "$$", right: "$$", display: true},
-            {left: "\\[", right: "\\]", display: true},
-            {left: "\\(", right: "\\)", display: false},
-            {left: "$", right: "$", display: false}
+            {left: '$$', right: '$$', display: true},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '$', right: '$', display: false}
         ];
         katexConfig.defaultOptions.throwOnError = false;
         katexConfig.defaultOptions.errorColor = '#d85';

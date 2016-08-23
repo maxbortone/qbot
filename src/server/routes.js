@@ -4,7 +4,7 @@ var data = require('./data');
 
 router.get('/notes', getNotes);
 router.get('/note/:id', getNote);
-router.get('/notes/:course', getNotesByCourse)
+router.get('/notes/:course', getNotesByCourse);
 router.get('/courses', getCourses);
 router.get('/course/:id', getCourse);
 router.get('/*', four0four.notFoundMiddleware);
@@ -41,7 +41,7 @@ function getNotesByCourse(req, res, next) {
     }
 
     function filterByCourse(obj) {
-        if ('course' in obj && typeof(obj.course) === 'string' && obj.course == course) {
+        if ('course' in obj && typeof(obj.course) === 'string' && obj.course === course) {
             return true;
         } else {
             return false;

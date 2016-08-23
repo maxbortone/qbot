@@ -262,7 +262,7 @@
             }, function() {
                 logger.warning('Action was canceled');
             });
-        };
+        }
 
         function viewCard ($index) {
             $mdDialog.show({
@@ -273,7 +273,7 @@
                 parent: angular.element(document.body),
                 clickOutsideToClose: true
             });
-        };
+        }
 
         function editCard (el) {
             $mdDialog.show({
@@ -293,8 +293,8 @@
             }, function() {
                 logger.warning('Action was canceled');
             });
-        };
-
+        }
+        
         function deleteCard(el) {
             // TODO: quite the hack, need a solution without angularfire-resource
             vm.elements.$remove(el);

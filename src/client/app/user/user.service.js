@@ -7,7 +7,7 @@
     User.$inject = ['$q', '$firebaseObject', '$firebaseArray', 'Ref', 'FireResource'];
     /* @ngInject */
     function User($q, $firebaseObject, $firebaseArray, Ref, FireResource) {
-        return FireResource(Ref.child('users'), function() {
+        return new FireResource(Ref.child('users'), function() {
             this.hasMany('courses');
             this.hasMany('contacts', {className: 'User'});
             this.hasOne('displayedCourse', {className: 'Course', inverseOf: false, foreignKey: 'displayedCourseId'});

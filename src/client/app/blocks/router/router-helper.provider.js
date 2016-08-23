@@ -36,7 +36,7 @@
                         params: $state.params,
                         URL: $state.href($state.current.name, $state.params)
                     };
-                    return currentStateData
+                    return currentStateData;
                 }]
             }
         };
