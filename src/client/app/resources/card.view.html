@@ -1,10 +1,10 @@
-<md-dialog layout="column" flex layout-padding ng-class="{'qb-card-front': vm.toggle,'qb-card-back': !vm.toggle}" class="qb-card">
+<md-dialog layout="column" flex layout-padding ng-class="{'qb-card-front': vm.toggle,'qb-card-back': !vm.toggle}" class="qb-card" qb-key-nav md-autofocus>
     <md-dialog-content flex layout="row" layout-align="center center">
-        <div class="qb-card-content" katex auto-render bind="vm.activeContent" ng-click="vm.flip()"></div>
-        <md-button class="md-icon-button qb-arrow qb-arrow-prev" ng-click="vm.prev()" ng-if="vm.current > 0">
+        <div class="qb-card-content" katex auto-render bind="vm.activeContent" ng-click="vm.flip($event)"></div>
+        <md-button class="md-icon-button qb-arrow qb-arrow-prev" ng-click="vm.prev($event)" ng-if="vm.current > 0">
             <md-icon>chevron_left</md-icon>
         </md-button>
-        <md-button class="md-icon-button qb-arrow qb-arrow-next" ng-click="vm.next()" ng-if="vm.current < vm.total">
+        <md-button class="md-icon-button qb-arrow qb-arrow-next" ng-click="vm.next($event)" ng-if="vm.current < vm.total">
             <md-icon>chevron_right</md-icon>
         </md-button>
     </md-dialog-content>

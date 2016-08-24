@@ -14,7 +14,7 @@
         restrict: 'A',
         link: function(scope, el) {
           el.addClass('ng-cloak'); // hide until we process it
-  
+
           function update() {
             // sometimes if ngCloak exists on same element, they argue, so make sure that
             // this one always runs last for reliability
@@ -22,13 +22,13 @@
               el.toggleClass('ng-cloak', !Auth.$getAuth());
             }, 0);
           }
-  
+
           Auth.$onAuth(update);
           update();
         }
       };
     }])
-    
+
     /**
      * @ngdoc function
      * @name blocks.directive:ngHideAuth
@@ -49,10 +49,22 @@
               el.toggleClass('ng-cloak', !!Auth.$getAuth());
             }, 0);
           }
-  
+
           Auth.$onAuth(update);
           update();
         }
       };
+    }])
+
+    .directive('qbKeyNav', ['$document', '$rootScope', function($document, $rootScope) {
+        return {
+            restrict: 'A',
+            link: function(scope, el, attrs) {
+                el.bind('keydown', function(e) {
+                    $rootScope.$broadcast('keydown', e);
+                    $rootScope.$broadcast('keydown:' + e.which, e);
+                });
+            }
+        };
     }]);
 })();

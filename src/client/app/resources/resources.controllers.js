@@ -148,9 +148,9 @@
         }
     }
 
-    CardViewController.$inject = ['$resourceElements', '$current'];
+    CardViewController.$inject = ['$scope', '$resourceElements', '$current'];
     /* @ngInject */
-    function CardViewController($resourceElements, $current) {
+    function CardViewController($scope, $resourceElements, $current) {
         var vm = this;
         var resource = null;
 
@@ -169,6 +169,21 @@
             vm.total = $resourceElements.length-1;
             resource = $resourceElements[vm.current];
             vm.activeContent = resource.front;
+            $scope.$on('keydown:37', function($event) {
+                $scope.$apply(function () {
+                    prev($event);
+                });
+            });
+            $scope.$on('keydown:38', function($event) {
+                $scope.$apply(function () {
+                    flip($event);
+                });
+            });
+            $scope.$on('keydown:39', function($event) {
+                $scope.$apply(function () {
+                    next($event);
+                });
+            });
         }
 
         function flip() {
@@ -181,13 +196,13 @@
             }
         }
 
-        function prev() {
+        function prev($event) {
             vm.current--;
             resource = $resourceElements[vm.current];
             vm.activeContent = resource.front;
         }
 
-        function next() {
+        function next($event) {
             vm.current++;
             resource = $resourceElements[vm.current];
             vm.activeContent = resource.front;
@@ -294,7 +309,7 @@
                 logger.warning('Action was canceled');
             });
         }
-        
+
         function deleteCard(el) {
             // TODO: quite the hack, need a solution without angularfire-resource
             vm.elements.$remove(el);
