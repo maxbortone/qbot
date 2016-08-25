@@ -7,6 +7,7 @@ var gulp = require('gulp');
 var path = require('path');
 var _ = require('lodash');
 var $ = require('gulp-load-plugins')({lazy: true});
+var fbt = require('firebase-tools');
 
 var colors = $.util.colors;
 var envenv = $.util.env;
@@ -371,6 +372,24 @@ gulp.task('bump', function() {
  * Optimize the code and re-load browserSync
  */
 gulp.task('browserSyncReload', ['optimize'], browserSync.reload);
+
+/**
+ * Publish project to Firebase Hosting
+  */
+gulp.task('fb-publish', function () {
+    log('Publishing to Firebase');
+
+    fbt.deploy({
+      project: config.fbProject,
+      token: process.env.FIREBASE_TOKEN,
+      cwd: config.build
+    }).then(function() {
+      log('Project has been deployed!');
+      done();
+    }).catch(function(err) {
+      // handle error
+    });
+});
 
 ////////////////
 

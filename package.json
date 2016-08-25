@@ -22,6 +22,7 @@
     "dateformat": "^1.0.8-1.2.3",
     "debug": "^2.0.0",
     "del": "^1.2.0",
+    "firebase-tools": "^3.0.7",
     "glob": "^4.5.3",
     "gulp": "^3.8.10",
     "gulp-angular-templatecache": "^1.4.2",
