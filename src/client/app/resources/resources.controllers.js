@@ -57,6 +57,7 @@
         vm.resource = null;
         vm.add = add;
         vm.cancel = cancel;
+        vm.editorLoad = editorLoad;
 
         activate();
 
@@ -64,6 +65,10 @@
             vm.resource = Resource.$new();
             vm.resource.front = '';
             vm.resource.back = '';
+        }
+
+        function editorLoad(_editor) {
+            _editor.focus();
         }
 
         function add() {
@@ -83,11 +88,16 @@
         vm.resource = null;
         vm.save = save;
         vm.cancel = cancel;
+        vm.editorLoad = editorLoad;
 
         activate();
 
         function activate() {
             vm.resource = $resourceElement;
+        }
+
+        function editorLoad(_editor) {
+            _editor.focus();
         }
 
         function save() {
@@ -198,12 +208,14 @@
 
         function prev($event) {
             vm.current--;
+            vm.toggle = true;
             resource = $resourceElements[vm.current];
             vm.activeContent = resource.front;
         }
 
         function next($event) {
             vm.current++;
+            vm.toggle = true;
             resource = $resourceElements[vm.current];
             vm.activeContent = resource.front;
         }

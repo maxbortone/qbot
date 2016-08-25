@@ -16,8 +16,8 @@
             <md-tab label="front">
                 <md-content class="md-padding">
                     <div layout="row">
-                        <div flex layout-margin ui-ace ng-model="vm.resource.front"></div>
-                        <pre flex layout-margin class="qb-preview" katex bind="vm.resource.front" auto-render></pre>
+                        <div flex="50" ui-ace="{useWrapMode: true, onLoad: vm.editorLoad}" ng-model="vm.resource.front"></div>
+                        <pre flex="45" flex-offset="5" class="qb-preview" katex bind="vm.resource.front" auto-render></pre>
                     </div>
                 </md-content>
             </md-tab>
