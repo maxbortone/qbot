@@ -4,6 +4,7 @@ node_modules/
 bower_components/
 
 # other
+build/**/*
 report/
 .tmp
 LOG.md
