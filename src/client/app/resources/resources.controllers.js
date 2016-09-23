@@ -158,9 +158,9 @@
         }
     }
 
-    CardViewController.$inject = ['$scope', '$resourceElements', '$current'];
+    CardViewController.$inject = ['$scope', '$elements', '$current'];
     /* @ngInject */
-    function CardViewController($scope, $resourceElements, $current) {
+    function CardViewController($scope, $elements, $current) {
         var vm = this;
         var resource = null;
 
@@ -176,12 +176,14 @@
 
         function activate() {
             vm.current = $current;
-            vm.total = $resourceElements.length-1;
-            resource = $resourceElements[vm.current];
+            vm.total = $elements.length-1;
+            resource = $elements[vm.current];
             vm.activeContent = resource.front;
             $scope.$on('keydown:37', function($event) {
                 $scope.$apply(function () {
-                    prev($event);
+                    if (vm.current > 0) {
+                        prev($event);
+                    }
                 });
             });
             $scope.$on('keydown:38', function($event) {
@@ -191,7 +193,9 @@
             });
             $scope.$on('keydown:39', function($event) {
                 $scope.$apply(function () {
-                    next($event);
+                    if (vm.current < vm.total) {
+                        next($event);
+                    }
                 });
             });
         }
@@ -209,14 +213,14 @@
         function prev($event) {
             vm.current--;
             vm.toggle = true;
-            resource = $resourceElements[vm.current];
+            resource = $elements[vm.current];
             vm.activeContent = resource.front;
         }
 
         function next($event) {
             vm.current++;
             vm.toggle = true;
-            resource = $resourceElements[vm.current];
+            resource = $elements[vm.current];
             vm.activeContent = resource.front;
         }
     }
@@ -255,12 +259,13 @@
         }
     }
 
-    CardsListController.$inject = ['$resourceElements', '$mdDialog', '$currentUser', 'Ref', 'logger'];
+    CardsListController.$inject = ['$scope', '$resourceElements', '$mdDialog', '$currentUser', 'Ref', 'logger', '$filter'];
     /* @ngInject */
-    function CardsListController($resourceElements, $mdDialog, $currentUser, Ref, logger) {
+    function CardsListController($scope, $resourceElements, $mdDialog, $currentUser, Ref, logger, $filter) {
         var vm = this;
 
         vm.elements = [];
+        vm.search = '';
         vm.addCard = addCard;
         vm.viewCard = viewCard;
         vm.editCard = editCard;
@@ -270,6 +275,17 @@
 
         function activate() {
             vm.elements = $resourceElements;
+            $scope.$on('keydown:13', function($event, ev) {
+                $scope.$apply(function () {
+                    ev.target.blur();
+                    searchCards(vm.search);
+                });
+            });
+            $scope.$watch('vm.search', function(newValue, oldValue) {
+                if (newValue === '' && oldValue.length > 0) {
+                    vm.elements = $resourceElements;
+                }
+            })
         }
 
         function addCard () {
@@ -293,7 +309,7 @@
 
         function viewCard ($index) {
             $mdDialog.show({
-                locals: {$resourceElements: vm.elements, $current: $index},
+                locals: {$elements: vm.elements, $current: $index},
                 controller: CardViewController,
                 controllerAs: 'vm',
                 templateUrl: 'app/resources/card.view.html',
@@ -327,6 +343,10 @@
             vm.elements.$remove(el);
             var elRef = Ref.child('resources').child(el.$id);
             elRef.remove();
+        }
+
+        function searchCards(search) {
+            vm.elements = $filter('filter')($resourceElements, search);
         }
     }
 
