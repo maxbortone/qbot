@@ -285,7 +285,7 @@
                 if (newValue === '' && oldValue.length > 0) {
                     vm.elements = $resourceElements;
                 }
-            })
+            });
         }
 
         function addCard () {

@@ -376,7 +376,7 @@ gulp.task('browserSyncReload', ['optimize'], browserSync.reload);
 /**
  * Publish project to Firebase Hosting
   */
-gulp.task('fb-publish', function () {
+gulp.task('fb-publish', function (done) {
     log('Publishing to Firebase');
 
     fbt.deploy({
