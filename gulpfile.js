@@ -385,9 +385,10 @@ gulp.task('fb-publish', function (done) {
       cwd: config.build
     }).then(function() {
       log('Project has been deployed!');
-      done();
+      process.exit(0);
     }).catch(function(err) {
-      // handle error
+     console.log(err);
+     process.exit(1);
     });
 });
 
