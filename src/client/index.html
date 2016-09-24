@@ -38,6 +38,9 @@
 <body  ng-app="app" layout="column" layout-fill ng-cloak="">
     <md-toolbar layout="row" ng-controller="ToolbarController as vm">
         <div class="md-toolbar-tools" layout-align="start center">
+            <md-button ng-click="vm.openSidenav('courseNav')" class="md-icon-button md-button" hide-gt-md>
+                <md-icon>menu</md-icon>
+            </md-button>
             <a href="/" class="qb-brand">QBOT</a>
             <p>{{displayedCourse.name}}</p>
             <span flex></span>

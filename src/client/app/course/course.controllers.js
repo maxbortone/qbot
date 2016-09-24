@@ -5,9 +5,9 @@
         .controller('CourseController', CourseController)
         .controller('CourseCreateController', CourseCreateController);
 
-    CourseController.$inject = ['$scope', 'logger', '$displayedCourse', '$state'];
+    CourseController.$inject = ['$rootScope', 'logger', '$displayedCourse', '$state', '$mdSidenav'];
     /* @ngInject */
-    function CourseController($scope, logger, $displayedCourse, $state) {
+    function CourseController($rootScope, logger, $displayedCourse, $state, $mdSidenav) {
         var vm = this;
         var resources = ['notes', 'definitions', 'cards'];
         var tools = ['memorize'];
@@ -44,6 +44,9 @@
         }
 
         function navigateTo(target) {
+            if ($rootScope.screenIsSmall) {
+                $mdSidenav('courseNav').toggle();
+            }
             $state.go('course.'+target, {'id': vm.course.$id});
         }
     }

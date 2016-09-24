@@ -4,13 +4,14 @@
         .module('app.toolbar', ['firebase.auth', 'blocks.filters', 'app.user'])
         .controller('ToolbarController', ToolbarController);
 
-    ToolbarController.$inject = ['$rootScope', '$scope', '$state', 'Auth', 'User'];
+    ToolbarController.$inject = ['$rootScope', '$scope', '$state', 'Auth', 'User', '$mdMedia', '$mdSidenav'];
     /* @ngInject */
-    function ToolbarController($rootScope, $scope, $state, Auth, User) {
+    function ToolbarController($rootScope, $scope, $state, Auth, User, $mdMedia, $mdSidenav) {
         var vm = this;
 
         vm.user = null;
         vm.logout = logout;
+        vm.openSidenav = openSidenav;
 
         activate();
 
@@ -30,12 +31,19 @@
                     $rootScope.displayedCourse = null;
                 }
             });
+            $rootScope.$watch(function() { return $mdMedia('(max-width: 1279px)'); }, function(small) {
+                $rootScope.screenIsSmall = small;
+            });
         }
 
         function logout() {
             vm.user = null;
             Auth.$unauth();
             $state.go('login');
+        }
+
+        function openSidenav(id) {
+            $mdSidenav(id).toggle();
         }
     }
 })();
