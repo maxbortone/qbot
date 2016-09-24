@@ -10,6 +10,7 @@
         var vm = this;
 
         vm.user = null;
+        vm.currentModule = '';
         vm.logout = logout;
         vm.openSidenav = openSidenav;
 
@@ -27,9 +28,8 @@
                 }
             });
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-                if (toState.name === 'account' || toState.name === 'home' ) {
-                    $rootScope.displayedCourse = null;
-                }
+                var parts = $state.$current.name.split('.');
+                vm.currentModule = parts[parts.length - 1];
             });
             $rootScope.$watch(function() { return $mdMedia('(max-width: 1279px)'); }, function(small) {
                 $rootScope.screenIsSmall = small;

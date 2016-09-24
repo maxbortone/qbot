@@ -4,9 +4,9 @@
         .module('app.login', ['firebase', 'firebase.auth', 'app.auth', 'blocks.logger'])
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$state', '$firebaseObject', 'Auth', 'AuthenticationService', 'logger'];
+    LoginController.$inject = ['$rootScope', '$state', '$firebaseObject', 'Auth', 'AuthenticationService', 'logger'];
     /* @ngInject */
-    function LoginController($state, $firebaseObject, Auth, AuthenticationService, logger) {
+    function LoginController($rootScope, $state, $firebaseObject, Auth, AuthenticationService, logger) {
         var vm = this;
 
         vm.createMode = false;
@@ -16,6 +16,7 @@
         activate();
 
         function activate() {
+            $rootScope.sidenavIsVisible = false;
             if (Auth.$getAuth()) {
                 $state.go('home');
             }

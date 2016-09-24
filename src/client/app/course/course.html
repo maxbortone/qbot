@@ -1,48 +1,4 @@
 <div layout="row" layout-fill flex>
-    <md-sidenav class="md-sidenav-left md-whiteframe-4dp" md-component-id="courseNav" md-is-locked-open="$mdMedia('gt-md')">
-      <md-list class="qb-sidenav">
-          <div layout="row">
-              <md-list-item flex class="qb-list-item" ng-click="vm.navigateTo('overview')">
-                  <md-icon>home</md-icon><p>{{vm.course.name | uppercase}}</p>
-              </md-list-item>
-              <md-menu md-offset="60 -7">
-                  <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                      <md-icon md-menu-origin>settings</md-icon>
-                  </md-button>
-                  <md-menu-content width="2">
-                      <md-menu-item>
-                          <md-button ui-sref="course.settings"> <span md-menu-align-target>Course settings</span> </md-button>
-                      </md-menu-item>
-                      <md-menu-item>
-                          <md-button ui-sref="course.permissions"> <span md-menu-align-target>Permissions</span> </md-button>
-                      </md-menu-item>
-                  </md-menu-content>
-              </md-menu>
-          </div>
-          <div ng-if="vm.resources.length > 0">
-              <md-divider></md-divider>
-              <md-subheader class="md-no-sticky qb-subheader">Create</md-subheader>
-              <md-list-item class="qb-list-item" ng-click="vm.navigateTo(resource)" ng-repeat="resource in vm.resources">
-                  <p>{{resource | titlecase}}</p>
-              </md-list-item>
-          </div>
-          <div ng-if="vm.tools.length > 0">
-              <md-divider></md-divider>
-              <md-subheader class="md-no-sticky qb-subheader">Learn</md-subheader>
-              <md-list-item class="qb-list-item" ng-click="vm.navigateTo(tool)" ng-repeat="tool in vm.tools">
-                  <p>{{tool | titlecase}}</p>
-              </md-list-item>
-          </div>
-          <div ng-if="vm.tests.length > 0">
-              <md-divider></md-divider>
-              <md-subheader class="md-no-sticky qb-subheader">Test</md-subheader>
-              <md-list-item class="qb-list-item" ng-click="vm.navigateTo(test)" ng-repeat="test in vm.tests">
-                  <p>{{test | titlecase}}</p>
-              </md-list-item>
-          </div>
-          <md-divider></md-divider>
-      </md-list>
-    </md-sidenav>
     <md-content ui-view="content" layout="column" flex>
 
     </md-content>

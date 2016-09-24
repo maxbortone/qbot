@@ -23,6 +23,11 @@
                             templateUrl: 'app/course/course.html',
                             controller: 'CourseController',
                             controllerAs: 'vm'
+                        },
+                        'sidenav@': {
+                            templateUrl: 'app/course/course.sidenav.html',
+                            controller: 'CourseController',
+                            controllerAs: 'vm'
                         }
                     },
                     resolve: {

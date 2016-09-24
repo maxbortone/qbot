@@ -4,9 +4,9 @@
         .module('app.home', ['blocks.filters', 'blocks.logger'])
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', '$currentUser', '$courses', 'logger'];
+    HomeController.$inject = ['$rootScope', '$currentUser', '$courses', 'logger'];
     /* @ngInject */
-    function HomeController($scope, $currentUser, $courses, logger) {
+    function HomeController($rootScope, $currentUser, $courses, logger) {
         var vm = this;
 
         vm.user = null;
@@ -16,6 +16,7 @@
         activate();
 
         function activate() {
+            $rootScope.sidenavIsVisible = false;
             vm.user = $currentUser;
             vm.courses = $courses;
             logger.success('Home view activated');

@@ -4,9 +4,9 @@
     .module('app.account', ['ngMaterial', 'firebase', 'firebase.auth', 'app.user', 'blocks.logger'])
     .controller('AccountController', AccountController);
 
-    AccountController.$inject = ['$scope', '$currentUser', 'Auth', '$firebaseObject', '$mdDialog', 'logger'];
+    AccountController.$inject = ['$rootScope', '$scope', '$currentUser', 'Auth', '$firebaseObject', '$mdDialog', 'logger'];
     /* @ngInject */
-    function AccountController($scope, $currentUser, Auth, $firebaseObject, $mdDialog, logger) {
+    function AccountController($rootScope, $scope, $currentUser, Auth, $firebaseObject, $mdDialog, logger) {
         var vm = this;
 
         vm.user = null;
@@ -21,6 +21,7 @@
         activate();
 
         function activate() {
+            $rootScope.sidenavIsVisible = false;
             $currentUser.$bindTo($scope, 'vm.profile');
             vm.contacts = $currentUser.$contacts();
         }

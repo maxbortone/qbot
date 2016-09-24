@@ -35,33 +35,38 @@
     <!-- endinject -->
     <!-- endbuild -->
 </head>
-<body  ng-app="app" layout="column" layout-fill ng-cloak="">
-    <md-toolbar layout="row" ng-controller="ToolbarController as vm">
-        <div class="md-toolbar-tools" layout-align="start center">
-            <md-button ng-click="vm.openSidenav('courseNav')" class="md-icon-button md-button" hide-gt-md>
-                <md-icon>menu</md-icon>
-            </md-button>
-            <a href="/" class="qb-brand">QBOT</a>
-            <p>{{displayedCourse.name}}</p>
-            <span flex></span>
-            <p ng-show-auth="">{{vm.user.name | firstname}}</p>
-            <md-menu md-offset="0 -7" ng-show="vm.user">
-                <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon md-menu-origin>more_vert</md-icon>
+<body  ng-app="app" layout="row" ng-cloak="">
+    <div layout="column" layout-fill>
+        <md-toolbar ng-controller="ToolbarController as vm">
+            <div class="md-toolbar-tools" layout-align="start center">
+                <md-button ng-click="vm.openSidenav('sidenav')" class="md-icon-button md-button" hide-gt-md ng-show="sidenavIsVisible">
+                    <md-icon>menu</md-icon>
                 </md-button>
-                <md-menu-content width="2">
-                    <md-menu-item>
-                        <md-button ui-sref="account"> <span md-menu-align-target>Account</span> </md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                        <md-button ng-click="vm.logout()"> <span md-menu-align-target>Logout</span> </md-button>
-                    </md-menu-item>
-                </md-menu-content>
-            </md-menu>
-        </div>
-    </md-toolbar>
+                <a href="/" class="qb-brand">QBOT</a>
+                <p>{{vm.currentModule | titlecase}}</p>
+                <span flex></span>
+                <p ng-show-auth="">{{vm.user.name | firstname}}</p>
+                <md-menu md-offset="0 -7" ng-show="vm.user">
+                    <md-button aria-label="Open menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin>more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content width="2">
+                        <md-menu-item>
+                            <md-button ui-sref="account"> <span md-menu-align-target>Account</span> </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="vm.logout()"> <span md-menu-align-target>Logout</span> </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+        </md-toolbar>
 
-    <div ui-view="main" flex></div>
+        <div layout="row">
+            <md-sidenav ui-view="sidenav" class="md-sidenav-left md-whiteframe-4dp" md-component-id="sidenav" md-is-locked-open="$mdMedia('gt-md')" ng-show="sidenavIsVisible"></md-sidenav>
+            <md-content ui-view="main" flex></md-content>
+        </div>
+    </div>
 
     <!-- build:js js/lib.js -->
     <!-- bower:js -->

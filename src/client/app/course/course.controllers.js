@@ -22,6 +22,7 @@
         activate();
 
         function activate() {
+            $rootScope.sidenavIsVisible = true;
             vm.course = $displayedCourse;
             angular.forEach(resources, function(resource, key) {
                 if (vm.course[resource]) {
@@ -45,7 +46,7 @@
 
         function navigateTo(target) {
             if ($rootScope.screenIsSmall) {
-                $mdSidenav('courseNav').toggle();
+                $mdSidenav('sidenav').toggle();
             }
             $state.go('course.'+target, {'id': vm.course.$id});
         }
