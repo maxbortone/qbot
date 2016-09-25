@@ -97,6 +97,7 @@
         }
 
         function editorLoad(_editor) {
+            _editor.$blockScrolling = Infinity;
             _editor.focus();
         }
 
@@ -320,13 +321,15 @@
 
         function editCard (el) {
             $mdDialog.show({
-                locals: {$resourceElement: el},
+                locals: {$resourceElement: {front: el.front, back: el.back}},
                 controller: CardEditController,
                 controllerAs: 'vm',
                 templateUrl: 'app/resources/card.edit.html',
                 parent: angular.element(document.body),
                 clickOutsideToClose: false
-            }).then(function(el) {
+            }).then(function(ob) {
+                el.front = ob.front;
+                el.back = ob.back;
                 el.$save()
                     .then(function(res) {
                         logger.success('Changes have been saved');
