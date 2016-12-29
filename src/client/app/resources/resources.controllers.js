@@ -36,7 +36,7 @@
             $scope.$on('keydown:13', function($event, ev) {
                 $scope.$apply(function () {
                     ev.target.blur();
-                    searchCards(vm.search);
+                    searchQuestions(vm.search);
                 });
             });
             $scope.$watch('vm.search', function(newValue, oldValue) {
