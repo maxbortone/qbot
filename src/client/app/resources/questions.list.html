@@ -1,0 +1,39 @@
+<div layout="column" layout-fill>
+    <md-toolbar class="md-warn md-hue-1 qb-module-toolbar">
+        <div class="md-toolbar-tools">
+            <md-input-container md-no-float qb-key-na>
+                <md-icon>search</md-icon>
+                <input type="text" ng-model="vm.search" placeholder="Search by content">
+            </md-input-container>
+            <span flex></span>
+            <md-button class="md-primary md-hue-1 md-raised" ng-click="vm.addQuestion()">Add question</md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout="column" flex class="md-hue-1">
+        <div>
+            <md-card layout-padding ng-repeat="element in vm.elements" ng-class="{'qb-answered': element.answer}">
+                <md-card-content flex>
+                    <p katex auto-render bind="element.question"></p>
+                    <p ng-show="element.toggle" class="qb-answer" katex auto-render bind="element.answer"></p>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-align="end start">
+                    <md-button ng-class="{'md-primary': element.answer, 'md-warn md-raised': !element.answer}" ng-click="vm.answerQuestion(element)">
+                        Answer
+                    </md-button>
+                    <md-button ng-hide="!element.toggle" class="md-primary" ng-click="vm.hideAnswer(element)">
+                        Hide
+                    </md-button>
+                    <md-button class="md-primary" ng-click="vm.editQuestion(element)">
+                        <md-icon>edit</md-icon>
+                    </md-button>
+                    <md-button class="md-primary" ng-click="vm.deleteQuestion(element)">
+                        <md-icon >delete</md-icon>
+                    </md-button>
+                 </div>
+            </md-card>
+            <div layout="row" layout-align="center">
+                <p ng-if="vm.elements.length == 0">No results found!</p>
+            </div>
+        </div>
+    </md-content>
+</div>

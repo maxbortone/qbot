@@ -53,12 +53,37 @@
                                 $resourceElements: ['$q', '$currentUser', '$displayedCourse',
                                     function($q, $currentUser, $displayedCourse) {
                                         var def = $q.defer();
-                                        $displayedCourse['$cards']()
-                                            .$loaded(function(result) {
-                                                def.resolve(result);
-                                            }, function(error) {
-                                                def.reject(error);
-                                            });
+                                        $displayedCourse['$cards']().$loaded(function(result) {
+                                            def.resolve(result);
+                                        }, function(error) {
+                                            def.reject(error);
+                                        });
+                                        return def.promise;
+                                }]
+                            }
+                        }
+                    },
+                    authenticate: true
+                }
+            },
+            {
+                state: 'course.questions',
+                config: {
+                    url: '/questions',
+                    views: {
+                        'content@course': {
+                            templateUrl: 'app/resources/questions.list.html',
+                            controller: 'QuestionsListController',
+                            controllerAs: 'vm',
+                            resolve: {
+                                $resourceElements: ['$q', '$currentUser', '$displayedCourse',
+                                    function($q, $currentUser, $displayedCourse) {
+                                        var def = $q.defer();
+                                        $displayedCourse['$questions']().$loaded(function(result) {
+                                            def.resolve(result);
+                                        }, function(error) {
+                                            def.reject(error);
+                                        });
                                         return def.promise;
                                 }]
                             }

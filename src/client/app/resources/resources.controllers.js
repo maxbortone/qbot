@@ -11,8 +11,187 @@
         .controller('NoteViewController', NoteViewController)
         .controller('DefinitionsListController', DefinitionsListController)
         .controller('DefinitionCreateController', DefinitionCreateController)
-        .controller('DefinitionViewController', DefinitionViewController);
+        .controller('DefinitionViewController', DefinitionViewController)
+        .controller('QuestionsListController', QuestionsListController)
+        .controller('QuestionCreateController', QuestionCreateController)
+        .controller('QuestionEditController', QuestionEditController);
 
+    QuestionsListController.$inject = ['$scope', '$resourceElements', '$mdDialog', '$currentUser', 'Ref', 'logger', '$filter'];
+    /* @ngInject */
+    function QuestionsListController($scope, $resourceElements, $mdDialog, $currentUser, Ref, logger, $filter) {
+        var vm = this;
+
+        vm.elements = [];
+        vm.search = '';
+        vm.addQuestion = addQuestion;
+        vm.answerQuestion = answerQuestion;
+        vm.editQuestion = editQuestion;
+        vm.deleteQuestion = deleteQuestion;
+        vm.hideAnswer = hideAnswer;
+
+        activate();
+
+        function activate() {
+            vm.elements = $resourceElements;
+            $scope.$on('keydown:13', function($event, ev) {
+                $scope.$apply(function () {
+                    ev.target.blur();
+                    searchCards(vm.search);
+                });
+            });
+            $scope.$watch('vm.search', function(newValue, oldValue) {
+                if (newValue === '' && oldValue.length > 0) {
+                    vm.elements = $resourceElements;
+                }
+            });
+        }
+
+        function addQuestion () {
+            $mdDialog.show({
+                controller: QuestionCreateController,
+                controllerAs: 'vm',
+                templateUrl: 'app/resources/question.create.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false
+            }).then(function(el) {
+                el.toggle = false;
+                vm.elements.$add(el)
+                    .then(function(res) {
+                        logger.success('New question was created');
+                    }, function(reason) {
+                        logger.error(reason);
+                    });
+            }, function() {
+                logger.warning('Action was canceled');
+            });
+        }
+
+        function editQuestion (el) {
+            $mdDialog.show({
+                locals: {$resourceElement: {question: el.question}},
+                controller: QuestionEditController,
+                controllerAs: 'vm',
+                templateUrl: 'app/resources/question.edit.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: false
+            }).then(function(ob) {
+                el.question = ob.question;
+                el.$save()
+                    .then(function(res) {
+                        logger.success('Changes have been saved');
+                    }, function(reason) {
+                        logger.error(reason);
+                    });
+            }, function() {
+                logger.warning('Action was canceled');
+            });
+        }
+
+        function deleteQuestion(el) {
+            // TODO: quite the hack, need a solution without angularfire-resource
+            vm.elements.$remove(el);
+            var elRef = Ref.child('resources').child(el.$id);
+            elRef.remove();
+        }
+
+        function answerQuestion(el) {
+            if (!el.answer || el.toggle) {
+                // element has no answer or it answer is being displayed
+                $mdDialog.show({
+                    locals: {$resourceElement: {answer: el.answer}},
+                    controller: QuestionEditController,
+                    controllerAs: 'vm',
+                    templateUrl: 'app/resources/question.answer.html',
+                    parent: angular.element(document.body),
+                    clickOutsideToClose: false
+                }).then(function(ob) {
+                    el.answer = ob.answer;
+                    el.toggle = true;
+                    el.$save()
+                        .then(function(res) {
+                            logger.success('Changes have been saved');
+                        }, function(reason) {
+                            logger.error(reason);
+                        });
+                }, function() {
+                    logger.warning('Action was canceled');
+                });
+            } else if (!el.toggle) {
+                el.toggle = true;
+                el.$save();
+            }
+        }
+
+        function hideAnswer(el) {
+            el.toggle = false;
+            el.$save();
+        }
+
+        function searchQuestions(search) {
+            vm.elements = $filter('filter')($resourceElements, search);
+        }
+    }
+
+    QuestionCreateController.$inject = ['$scope', '$mdDialog', 'Resource'];
+    /* @ngInject */
+    function QuestionCreateController($scope, $mdDialog, Resource) {
+        var vm = this;
+
+        vm.resource = null;
+        vm.add = add;
+        vm.cancel = cancel;
+        vm.editorLoad = editorLoad;
+
+        activate();
+
+        function activate() {
+            vm.resource = Resource.$new();
+            vm.resource.front = '';
+            vm.resource.back = '';
+        }
+
+        function editorLoad(_editor) {
+            _editor.focus();
+        }
+
+        function add() {
+            $mdDialog.hide(vm.resource);
+        }
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
+    }
+
+    QuestionEditController.$inject = ['$scope', '$mdDialog', '$resourceElement'];
+    /* @ngInject */
+    function QuestionEditController($scope, $mdDialog, $resourceElement) {
+        var vm = this;
+
+        vm.resource = null;
+        vm.save = save;
+        vm.cancel = cancel;
+        vm.editorLoad = editorLoad;
+
+        activate();
+
+        function activate() {
+            vm.resource = $resourceElement;
+        }
+
+        function editorLoad(_editor) {
+            _editor.$blockScrolling = Infinity;
+            _editor.focus();
+        }
+
+        function save() {
+            $mdDialog.hide(vm.resource);
+        }
+
+        function cancel() {
+            $mdDialog.cancel();
+        }
+    }
 
     NoteCreateController.$inject = ['$scope', '$location', '$previousState', 'logger', '$currentUser', 'Resource'];
     /* @ngInject */

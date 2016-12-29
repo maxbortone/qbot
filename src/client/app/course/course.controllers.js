@@ -9,7 +9,7 @@
     /* @ngInject */
     function CourseController($rootScope, logger, $displayedCourse, $state, $mdSidenav) {
         var vm = this;
-        var resources = ['notes', 'definitions', 'cards'];
+        var resources = ['cards', 'questions'];
         var tools = ['memorize'];
         var tests = ['T/F', 'quiz'];
 
@@ -24,24 +24,25 @@
         function activate() {
             $rootScope.sidenavIsVisible = true;
             vm.course = $displayedCourse;
-            angular.forEach(resources, function(resource, key) {
-                if (vm.course[resource]) {
-                    vm.resources.push(resource);
-                }
-            });
-            angular.forEach(tools, function(tool, key) {
-                if (vm.course[tool]) {
-                    vm.tools.push(tool);
-                }
-            });
-            angular.forEach(tests, function(test, key) {
-                if (vm.course[test]) {
-                    vm.resources.push(test);
-                }
-            });
-            if (!vm.resources && !vm.tools && !vm.tests) {
-                logger.warning('No resources available!');
-            }
+            vm.resources = resources;
+            // angular.forEach(resources, function(resource, key) {
+            //     if (vm.course[resource]) {
+            //         vm.resources.push(resource);
+            //     }
+            // });
+            // angular.forEach(tools, function(tool, key) {
+            //     if (vm.course[tool]) {
+            //         vm.tools.push(tool);
+            //     }
+            // });
+            // angular.forEach(tests, function(test, key) {
+            //     if (vm.course[test]) {
+            //         vm.resources.push(test);
+            //     }
+            // });
+            // if (!vm.resources && !vm.tools && !vm.tests) {
+            //     logger.warning('No resources available!');
+            // }
         }
 
         function navigateTo(target) {
