@@ -3,7 +3,8 @@
     angular
         .module('app.course')
         .controller('CourseController', CourseController)
-        .controller('CourseCreateController', CourseCreateController);
+        .controller('CourseCreateController', CourseCreateController)
+        .controller('CourseSettingsController', CourseSettingsController);
 
     CourseController.$inject = ['$rootScope', 'logger', '$displayedCourse', '$state', '$mdSidenav'];
     /* @ngInject */
@@ -84,6 +85,41 @@
         function cancel() {
             vm.newCourse = null;
             $state.go('home');
+        }
+    }
+
+    CourseSettingsController.$inject = ['$scope', '$state', 'logger', '$currentUser', '$displayedCourse'];
+    /* @ngInject */
+    function CourseSettingsController($scope, $state, logger, $currentUser, $displayedCourse) {
+        var vm = this;
+
+        vm.user = null;
+        vm.course = null;
+        vm.save = save;
+        vm.cancel = cancel;
+
+        activate();
+
+        function activate() {
+            vm.user = $currentUser;
+            vm.course = {
+                color: $displayedCourse.color,
+                name: $displayedCourse.name
+            };
+        }
+
+        function save() {
+            $displayedCourse.color = vm.course.color;
+            $displayedCourse.name = vm.course.name;
+            $displayedCourse.$save()
+                .then(function() {
+                    $state.go('course.overview', {'id': $displayedCourse.$id});
+                });
+        }
+
+        function cancel() {
+            vm.course = null;
+            $state.go('course.overview', {'id': $displayedCourse.$id});
         }
     }
 })();

@@ -73,6 +73,20 @@
                     },
                     authenticate: true
                 }
+            },
+            {
+                state: 'course.settings',
+                config: {
+                    url: '/settings',
+                    views: {
+                        'main@': {
+                            templateUrl: 'app/course/course.settings.html',
+                            controller: 'CourseSettingsController',
+                            controllerAs: 'vm'
+                        }
+                    },
+                    authenticate: true
+                }
             }
         ];
     }

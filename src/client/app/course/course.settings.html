@@ -1,0 +1,22 @@
+<md-content layout="column" layout-padding flex class="md-padding">
+    <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center">
+        <md-content layout-padding>
+            <h3 class="md-headline">Settings</h3>
+            <md-input-container md-no-float >
+                <md-icon>school</md-icon>
+                <input ng-model="vm.course.name" type="text" placeholder="Course name">
+            </md-input-container>
+            <md-radio-group ng-model="vm.course.color">
+                <md-radio-button value="grey">Grey</md-radio-button>
+                <md-radio-button value="green">Green</md-radio-button>
+                <md-radio-button value="yellow">Yellow</md-radio-button>
+                <md-radio-button value="blue">Blue</md-radio-button>
+                <md-radio-button value="purple">Purple</md-radio-button>
+            </md-radio-group>
+            <div layout="row">
+                <md-button class="md-raised md-primary" ng-click="vm.save(vm.course)">Save</md-button>
+                <md-button class="md-raised md-warn" ng-click="vm.cancel(vm.course)">Cancel</md-button>
+            </div>
+        </md-content>
+    </md-whiteframe>
+</md-content>
