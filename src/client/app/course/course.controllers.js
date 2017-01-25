@@ -88,15 +88,18 @@
         }
     }
 
-    CourseSettingsController.$inject = ['$scope', '$state', 'logger', '$currentUser', '$displayedCourse'];
+    CourseSettingsController.$inject = ['$scope', '$state', 'logger', '$currentUser', '$displayedCourse', '$mdColorPalette'];
     /* @ngInject */
-    function CourseSettingsController($scope, $state, logger, $currentUser, $displayedCourse) {
+    function CourseSettingsController($scope, $state, logger, $currentUser, $displayedCourse, $mdColorPalette) {
         var vm = this;
 
         vm.user = null;
         vm.course = null;
+        vm.colors = Object.keys($mdColorPalette);
+        vm.selectedColor = null;
         vm.save = save;
         vm.cancel = cancel;
+        vm.setColor = setColor;
 
         activate();
 
@@ -104,13 +107,35 @@
             vm.user = $currentUser;
             vm.course = {
                 color: $displayedCourse.color,
-                name: $displayedCourse.name
+                name: $displayedCourse.name,
+                university: $displayedCourse.university,
+                description: $displayedCourse.description,
+                public: $displayedCourse.public,
             };
+            // $scope.$watch('vm.selectedColor', function(newValue, oldValue) {
+            //     if (newValue != oldValue) {
+            //         vm.course.color = newValue;
+            //     }
+            // });
+            vm.selectedColor = vm.course.color;
         }
 
         function save() {
-            $displayedCourse.color = vm.course.color;
-            $displayedCourse.name = vm.course.name;
+            if (vm.course.color) {
+                $displayedCourse.color = vm.course.color;
+            }
+            if (vm.course.name) {
+                $displayedCourse.name = vm.course.name;
+            }
+            if (vm.course.university) {
+                $displayedCourse.university = vm.course.university;
+            }
+            if (vm.course.description) {
+                $displayedCourse.description = vm.course.description;
+            }
+            if (vm.course.public) {
+                $displayedCourse.public = vm.course.public;
+            }
             $displayedCourse.$save()
                 .then(function() {
                     $state.go('course.overview', {'id': $displayedCourse.$id});
@@ -120,6 +145,11 @@
         function cancel() {
             vm.course = null;
             $state.go('course.overview', {'id': $displayedCourse.$id});
+        }
+
+        function setColor(color) {
+            vm.course.color = color;
+            vm.selectedColor = color;
         }
     }
 })();

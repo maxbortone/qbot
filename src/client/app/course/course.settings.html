@@ -1,22 +1,59 @@
-<md-content layout="column" layout-padding flex class="md-padding">
+<!-- <md-content layout="column" layout-padding flex class="md-padding">
     <md-whiteframe class="md-whiteframe-z1" layout="row" layout-align="center center">
-        <md-content layout-padding>
-            <h3 class="md-headline">Settings</h3>
-            <md-input-container md-no-float >
-                <md-icon>school</md-icon>
-                <input ng-model="vm.course.name" type="text" placeholder="Course name">
-            </md-input-container>
-            <md-radio-group ng-model="vm.course.color">
-                <md-radio-button value="grey">Grey</md-radio-button>
-                <md-radio-button value="green">Green</md-radio-button>
-                <md-radio-button value="yellow">Yellow</md-radio-button>
-                <md-radio-button value="blue">Blue</md-radio-button>
-                <md-radio-button value="purple">Purple</md-radio-button>
-            </md-radio-group>
-            <div layout="row">
-                <md-button class="md-raised md-primary" ng-click="vm.save(vm.course)">Save</md-button>
-                <md-button class="md-raised md-warn" ng-click="vm.cancel(vm.course)">Cancel</md-button>
-            </div>
-        </md-content>
+
     </md-whiteframe>
-</md-content>
+</md-content> -->
+
+<!-- <md-content layout-padding>
+    <h3 class="md-headline">Settings</h3>
+
+    <div layout="row">
+        <md-button class="md-raised md-primary" ng-click="vm.save(vm.course)">Save</md-button>
+        <md-button class="md-raised md-warn" ng-click="vm.cancel(vm.course)">Cancel</md-button>
+    </div>
+</md-content> -->
+
+<div layout="column" flex layout-fill>
+    <md-toolbar class="md-warn md-hue-1 qb-module-toolbar">
+        <div class="md-toolbar-tools">
+            <h2>Settings</h2>
+            <span flex></span>
+            <md-button class="md-raised md-primary" ng-click="vm.save(vm.course)">Save</md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout="column" layout-padding flex class="md-hue-1">
+        <h3 class="md-subhead">General information</h3>
+        <div layout="row">
+            <md-input-container flex>
+                <label>Name</label>
+                <input ng-model="vm.course.name" type="text" placeholder="What?">
+            </md-input-container>
+            <md-input-container flex>
+                <label>University</label>
+                <input ng-model="vm.course.university" type="text" placeholder="Where?">
+            </md-input-container>
+        </div>
+        <div layout="row">
+            <md-input-container flex class="md-block">
+              <label>Description</label>
+              <textarea ng-model="vm.course.description" md-maxlength="150" rows="5" md-select-on-focus placeholder="Tell us all about it..."></textarea>
+            </md-input-container>
+        </div>
+        <h3 class="md-subhead">Visibility and sharing options</h3>
+        <div layout="row">
+            <md-input-container>
+                <md-switch ng-model="vm.course.public">
+                    {{vm.course.public ? "Public" : "Private"}}
+                </md-switch>
+            </md-input-container>
+        </div>
+        <h3 class="md-subhead">Theme</h3>
+        <div layout="row" layout-wrap layout-align="center center">
+            <md-button ng-repeat="color in vm.colors" flex-gt-md="15" flex="30"
+                md-colors="{background: '{{color}}'}" md-colors-watch="watch"
+                ng-disabled="vm.selectedColor === color" ng-click="vm.setColor(color)">
+                {{color}}<md-icon ng-if="vm.course.color === color">check_circle</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</div>

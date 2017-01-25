@@ -10,8 +10,8 @@
             <h3>Your courses</h3>
         </div>
         <md-grid-list class="qb-grid-list" md-cols-sm="2" md-cols-gt-lg="6" md-cols="4" md-row-height="16:9">
-            <md-grid-tile class="qb-{{course.color}}" ng-repeat="course in vm.courses" md-colspan="1" md-rowspan="2">
-                <md-grid-tile-header layout-padding><a ui-sref="course.overview({id: course.$id, resource: 'notes'})">{{course.name}}</a></md-grid-tile-header>
+            <md-grid-tile md-colors="{background: '{{course.color}}'}" ng-repeat="course in vm.courses" md-colspan="1" md-rowspan="2">
+                <md-grid-tile-header layout-padding><a ui-sref="course.overview({id: course.$id, resource: 'notes'})">{{course.name | uppercase}}</a></md-grid-tile-header>
                 <md-grid-tile-footer layout-align="end center" layout-padding>
                     <span ng-if="course.cards">
                         <md-tooltip md-direction="top">Cards</md-tooltip>
