@@ -20,14 +20,17 @@
         toastr.options.positionClass = 'toast-bottom-right';
     }
 
-    configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
+    configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider', '$qProvider'];
     /* @ngInject */
-    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
+    function configure($logProvider, routerHelperProvider, exceptionHandlerProvider, $qProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
         exceptionHandlerProvider.configure(config.appErrorPrefix);
         routerHelperProvider.configure({docTitle: config.appTitle + ': '});
+        // TODO: handle promise rejections properly
+        // see: https://github.com/angular-ui/ui-router/issues/2889
+        $qProvider.errorOnUnhandledRejections(false);
     }
 
     katexOptions.$inject = ['katexConfig'];
